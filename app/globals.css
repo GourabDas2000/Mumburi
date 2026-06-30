@@ -2,26 +2,6 @@
 @import "tailwindcss";
 
 :root {
-  
-  /* --bg-color: #fafafa;
-  --primary-color: #0f1a24;
-   --secondary-color: #5a5a5a;
-  --accent-color: #967843;
-  --nav-text-color: #7a7a7a;
-
-  
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
-
-  
-  --font-size-heading: 3.75rem;
-  --font-size-body: 1.125rem;
-  --font-size-nav: 0.8125rem;
-
-  --weight-light: 300;
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-bold: 700; */
 
   --bg-color: #FAFAFA;
   --primary-color: #0F1A24;
@@ -31,6 +11,16 @@
 
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
+
+
+  --fs-hero-title: clamp(2.2rem, 8vw, 3.2rem);
+  --fs-hero-p: clamp(0.9rem, 3.5vw, 1.05rem);
+  --fs-btn: clamp(0.75rem, 3vw, 0.8125rem);
+
+  /* THEME: Vibrant Mumburi Colors (Based on your feedback) */
+  --mumburi-accent-vibrant: #df8f00; /* Richer Gold for buttons and highlight */
+  --mumburi-dark-deep: #16243a; /* Deeper charcoal/blue for text pop */
+  --mumburi-p-pop: #ffffff;
 }
 @theme {
   --breakpoint-sm: 40rem; /* 640px */
@@ -38,14 +28,7 @@
   --breakpoint-lg: 64rem; /* 1024px */
   --breakpoint-xl: 80rem; /* 1280px */
 }
-/* body {
-  margin: 0%;
-  padding: 0%;
-  background-color: var(--bg-color);
-  color: var(--secondary-color);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-} */
+
 @layer base {
   body {
     background-color: var(--bg-color);

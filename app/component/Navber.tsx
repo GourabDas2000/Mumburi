@@ -76,6 +76,7 @@ const Navber = () => {
               alt="Mumburi Logo"
               fill
               priority
+              sizes="40px"
               className="object-cover"
             />
           </div>
