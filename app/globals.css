@@ -1,33 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair_Display:ital,wght@0,400..700;1,400..700&display=swap");
 @import "tailwindcss";
 
 :root {
-  /* --background: #ffffff;
-  --foreground: #171717; */
-}
-image{
-  /* height: 100%;
-  width: 100%;   */
+  
+  /* --bg-color: #fafafa;
+  --primary-color: #0f1a24;
+   --secondary-color: #5a5a5a;
+  --accent-color: #967843;
+  --nav-text-color: #7a7a7a;
+
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+
+  
+  --font-size-heading: 3.75rem;
+  --font-size-body: 1.125rem;
+  --font-size-nav: 0.8125rem;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700; */
+
+  --bg-color: #FAFAFA;
+  --primary-color: #0F1A24;
+  --secondary-color: #5A5A5A;
+  --accent-color: #967843;
+  --nav-text-color: #7A7A7A;
+
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
 }
 @theme {
-  --breakpoint-sm: 40rem;  /* 640px */
-  --breakpoint-md: 48rem;  /* 768px */
-  --breakpoint-lg: 64rem;  /* 1024px */
-  --breakpoint-xl: 80rem;  /* 1280px */
+  --breakpoint-sm: 40rem; /* 640px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
 }
-.navsupport li{
-  transition: all 2s;
+/* body {
+  margin: 0%;
+  padding: 0%;
+  background-color: var(--bg-color);
+  color: var(--secondary-color);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+} */
+@layer base {
+  body {
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    color: var(--primary-color);
+  }
 }
 @media (prefers-color-scheme: dark) {
   :root {
     /* --background: #0a0a0a;
     --foreground: #ededed; */
   }
-}
-
-body {
-  /* background: var(--background);
-  color: var(--foreground); */
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0%;
-  padding: 0%;
 }
