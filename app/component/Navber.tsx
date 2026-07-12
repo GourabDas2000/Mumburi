@@ -33,10 +33,7 @@ const Navber = () => {
             <Link href="/craft">Our Craft</Link>
           </li>
           <li className="transition-all duration-300 ease-in-out cursor-pointer hover:text-[var(--primary-color)]">
-            <Link href="/stories">Stories</Link>
-          </li>
-          <li className="transition-all duration-300 ease-in-out cursor-pointer hover:text-[var(--primary-color)]">
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/contact">Your Story</Link>
           </li>
         </ul>
 

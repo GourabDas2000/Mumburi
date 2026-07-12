@@ -21,6 +21,8 @@
   --mumburi-accent-vibrant: #df8f00; /* Richer Gold for buttons and highlight */
   --mumburi-dark-deep: #16243a; /* Deeper charcoal/blue for text pop */
   --mumburi-p-pop: #ffffff;
+
+   --surface-card: #FBF9F6;
 }
 @theme {
   --breakpoint-sm: 40rem; /* 640px */
@@ -42,9 +44,5 @@
     color: var(--primary-color);
   }
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --background: #0a0a0a;
-    --foreground: #ededed; */
-  }
-}
+
+ 

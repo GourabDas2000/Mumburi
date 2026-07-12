@@ -2,6 +2,7 @@ import Image from "next/image";
 import DesktopBackgroundHome from "../../public/DesktopBackgroundHome.png";
 import MobileBackgroundHome from "../../public/MobileBackgroundHome.png";
 
+
 export default function Hero() {
   return (
     <>
@@ -9,7 +10,7 @@ export default function Hero() {
         {/* --- SECTION 1: MAIN HERO VISUAL --- */}
         <section className="relative w-full min-h-[85vh] md:min-h-[75vh] flex items-center overflow-hidden">
           {/* 1.1 DESKTOP & TABLET BACKGROUND */}
-          <div className="hidden md:block absolute inset-0 z-0">
+          <div className="hidden md:block absolute inset-0">
             <Image
               src={DesktopBackgroundHome}
               alt="Artisanal craft workspace"
