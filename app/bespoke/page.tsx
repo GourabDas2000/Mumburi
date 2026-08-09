@@ -6,17 +6,19 @@ const BespokeJourney = () => {
   const { hero, dialogue, testimonial } = bespokeData;
   const [visionText, setVisionText] = useState("");
 
-  // Arrow function to handle chip prompts
-  const handleChipClick = (prompt) => {
+  // Default string parameter prevents Next.js 'implicit any' build errors
+  const handleChipClick = (prompt = "") => {
     setVisionText((prevText) => {
       if (prevText.includes(prompt)) return prevText;
       return prevText ? `${prevText}\n${prompt}` : prompt;
     });
   };
 
-  // Arrow function for email submission
-  const handleEmailSubmit = (e) => {
-    e.preventDefault();
+  // Safe fallback for event handling in pure JavaScript
+  const handleEmailSubmit = (e = { preventDefault: () => {} }) => {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
     if (!visionText) return;
     const subject = encodeURIComponent(
       "New Bespoke Commission Request - Mumburi",
@@ -89,9 +91,9 @@ const BespokeJourney = () => {
 
             {/* Interactive Prompt Chips */}
             <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6">
-              {dialogue.chips.map((chip) => (
+              {dialogue.chips.map((chip, idx) => (
                 <button
-                  key={chip.id}
+                  key={chip.id || idx}
                   type="button"
                   onClick={() => handleChipClick(chip.prompt)}
                   className="bg-[#faf6ee] hover:bg-[#f3ead8] text-[#0f3d4c] text-xs font-medium px-4 py-2 rounded-full border border-amber-200/60 transition-all duration-200 active:scale-95 cursor-pointer"
