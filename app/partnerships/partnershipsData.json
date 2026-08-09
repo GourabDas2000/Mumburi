@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "badge": "✨ One of a kind",
+    "title": "Handcrafted with love in my small studio.",
+    "subtitle": "Welcome to Mumburi. A quiet space where slow, intentional craft meets everyday objects. Every piece tells a story of patience, earth, and hands.",
+    "buttonText": "Explore the collection →",
+    "estTag": "Est. 2024"
+  },
+  "makers": {
+    "heading": "Let’s grow together, friend.",
+    "description": "I love meeting fellow dreamers and makers. If you have a spark of an idea or want to see Mumburi pieces in your own space, I'd love to hear your story. Drop your handle below so I can admire your world.",
+    "studioNote": "STUDIO NOTE",
+    "studioNoteText": "We have room for 12 makers to join our hearth at once."
+  },
+  "wholesale": {
+    "sublabel": "SMALL BUSINESS ALLIANCES",
+    "title": "Let’s stock your shelves together.",
+    "description": "We love partnering with boutiques and galleries that value the slow and the steady. Our wholesale program is more of a conversation than a contract. Reach out and let's chat about how Mumburi fits into your world.",
+    "badge": "15+\nGlobal Friends",
+    "whatsappText": "Say Hi on WhatsApp",
+    "emailText": "Send an Email",
+    "footerNote": "I'D LOVE TO SEE YOUR INSTAGRAM OR PORTFOLIO LINK TOO!"
+  }
+}

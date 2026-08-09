@@ -1,7 +1,7 @@
 import Hero from "./component/Hero";
-import Navber from "./component/Navber";
 import Featured from "./component/Featured";
 import Card from "./component/Card";
+import SayHello from "./component/SayHello";
 
 export default function Home() {
   return (
@@ -9,6 +9,7 @@ export default function Home() {
       <Hero />
       <Featured />
       <Card/>
+      <SayHello/>
     </div>
   );
 }

@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "title": "The Bespoke Journey: Craft Your Vision with Our Artisans",
+    "subtitle": "From unique clay sculptures to hand-painted textiles, we collaborate with you to bring your personal stories to life through timeless craft."
+  },
+  "dialogue": {
+    "title": "Begin the Dialogue",
+    "subtitle": "Every masterpiece starts with a conversation. Share your inspiration with our master artisans and let us bring your vision to life.",
+    "chips": [
+      {
+        "id": "piece",
+        "label": "What's the piece?",
+        "prompt": "• Piece Type: "
+      },
+      {
+        "id": "vibe",
+        "label": "Vibe & Aesthetic?",
+        "prompt": "• Aesthetic/Vibe: "
+      },
+      {
+        "id": "touches",
+        "label": "Personal touches?",
+        "prompt": "• Custom Details: "
+      },
+      {
+        "id": "references",
+        "label": "Any references?",
+        "prompt": "• References: "
+      },
+      {
+        "id": "timeline",
+        "label": "When do you need it?",
+        "prompt": "• Target Date: "
+      }
+    ],
+    "placeholder": "Draft your vision here... Just bring us your idea — we'll help turn it into something real.",
+    "emailButton": "SEND VIA EMAIL",
+    "whatsappButton": "DISCUSS VIA WHATSAPP"
+  },
+  "testimonial": {
+    "quote": "“Mumburi translated my fragmented memories into a tangible heirloom I will cherish forever.”",
+    "author": "ELENA V., CLIENT"
+  }
+}

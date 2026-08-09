@@ -1,0 +1,62 @@
+{
+  "header": {
+    "title": "Our Craft",
+    "description": "Explore the meticulous techniques and natural materials behind every Mumburi creation. A testament to heritage and slow craftsmanship."
+  },
+  "sections": [
+    {
+      "badge": "EARTH & FIRE",
+      "title": "Clay Works & Jewellery",
+      "description": "Each piece of jewelry and ceramic vessel is sculpted by hand, drawing inspiration from ancient motifs. We source raw clay locally, allowing the natural minerals to create subtle variations in color and texture after firing.",
+      "fact": "Fact: Fired at exactly 1050°C to achieve optimal durability while retaining an earthy porosity.",
+      "factIcon": "🔥",
+      "imagePosition": "right",
+      "borderRadius": "28px 45px 35px 50px / 45px 25px 50px 30px"
+    },
+    {
+      "badge": "WOVEN CANVAS",
+      "title": "Hand-Painted Textiles",
+      "description": "Our fabrics serve as a canvas for storytelling. Artisans use fine brushes to apply complex, heritage patterns directly onto the woven fabric, ensuring no two pieces are ever exactly alike.",
+      "fact": "Fact: Colors are derived entirely from plant roots, bark, and crushed minerals.",
+      "factIcon": "🎨",
+      "imagePosition": "left",
+      "borderRadius": "50px 30px 45px 25px / 30px 50px 25px 45px"
+    },
+    {
+      "badge": "DAILY CARRY",
+      "title": "Artisanal Tote Bags",
+      "description": "Constructed for longevity and adorned with heritage motifs, these totes blend heavy-weight, unbleached canvas with intricate embroidery panels that celebrate traditional craftsmanship in a modern silhouette.",
+      "fact": "Fact: Every load-bearing seam features our signature hidden double-stitch for unmatched durability.",
+      "factIcon": "🔨",
+      "imagePosition": "right",
+      "borderRadius": "40% 60% 70% 30% / 50% 60% 40% 50%"
+    },
+    {
+      "badge": "CREATE",
+      "title": "DIY Kits",
+      "description": "Experience the meditative process of creation at home. Our curated kits provide everything needed to craft your own piece of heritage, connecting you directly to the artisan's journey.",
+      "fact": "Fact: Each box includes a handwritten 'Artisan's Tip' sharing a secret technique passed down through generations.",
+      "factIcon": "💡",
+      "imagePosition": "left",
+      "borderRadius": "35px 20px 50px 30px / 20px 45px 30px 50px"
+    },
+    {
+      "badge": "RAW MATERIALS",
+      "title": "Bespoke Fabrics",
+      "description": "We source only the finest, ethically produced fibers. From rough-hewn linens to smooth, tightly woven cottons, the foundation of our work is as considered as the embellishments we apply.",
+      "fact": null,
+      "factIcon": null,
+      "imagePosition": "right",
+      "borderRadius": "45px 50px 25px 35px / 30px 25px 50px 45px"
+    },
+    {
+      "badge": "PERSONALIZED",
+      "title": "Customized Kits",
+      "description": "Tailored for the dedicated maker. We consult with you to build a bespoke kit, selecting specific patterns, tools, and materials that align with your unique creative vision.",
+      "fact": null,
+      "factIcon": null,
+      "imagePosition": "left",
+      "borderRadius": "30px 50px 40px 25px / 45px 30px 25px 50px"
+    }
+  ]
+}
