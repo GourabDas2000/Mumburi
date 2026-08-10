@@ -19,7 +19,7 @@ const Navbar = () => {
   ];
 
   // Helper function to check if a link is currently active
-  const isActive = (path) => pathname === path;
+  const isActive = (path = "") => pathname === path;
 
   return (
     <>
