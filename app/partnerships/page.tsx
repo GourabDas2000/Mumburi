@@ -34,7 +34,7 @@ const CollaborationPage = () => {
           <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0f3d4c] leading-[1.15] mb-6">
             Handcrafted with love in my{" "}
             <span className="underline decoration-[#c27b5e] decoration-2 underline-offset-8">
-              small studio.
+              studio.
             </span>
           </h1>
 
@@ -43,12 +43,12 @@ const CollaborationPage = () => {
             {hero.subtitle}
           </p>
 
-          {/* Rust/Terracotta CTA Button */}
+          {/* Home Page Hero Button Style (Matches Pic 2 Exactly) */}
           <button
             type="button"
-            className="bg-[#a84c32] hover:bg-[#8b3d27] text-white text-xs md:text-sm font-medium px-6 py-3.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2"
+            className="bg-[#101828] hover:bg-[#1f2937] text-white text-xs md:text-sm font-bold uppercase tracking-[0.2em] px-7 py-3.5 rounded-md transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
           >
-            {hero.buttonText}
+            {hero.buttonText?.replace("→", "").trim()}
           </button>
         </div>
 
@@ -199,14 +199,14 @@ const CollaborationPage = () => {
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4 mb-6 w-full">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-6 w-full">
             {/* WhatsApp CTA */}
             <button
               type="button"
               onClick={handleWhatsapp}
-              className="bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold tracking-wide py-3.5 px-6 rounded-xl transition-all duration-200 flex items-center gap-2.5 shadow-sm active:scale-95"
+              className="flex-1 sm:flex-none min-w-[200px] py-4 px-8 bg-[#25D366] hover:bg-[#20bd5a] text-white font-sans text-xs md:text-sm font-bold uppercase tracking-[0.15em] rounded-xl transition-all duration-200 flex items-center justify-center gap-2.5 shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
               </svg>
               {wholesale.whatsappText}
@@ -216,8 +216,19 @@ const CollaborationPage = () => {
             <button
               type="button"
               onClick={handleEmail}
-              className="bg-[#FAF8F5] hover:bg-[#eae4d9] text-[#0f3d4c] border border-gray-300 text-xs font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 active:scale-95"
+              className="flex-1 sm:flex-none min-w-[200px] py-4 px-8 bg-white hover:bg-[#0f3d4c] text-[#0f3d4c] hover:text-white border border-[#0f3d4c]/20 font-sans text-xs md:text-sm font-bold uppercase tracking-[0.15em] rounded-xl transition-all duration-200 flex items-center justify-center gap-2.5 shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
             >
+              <svg
+                className="w-5 h-5 fill-none stroke-current"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
               {wholesale.emailText}
             </button>
           </div>

@@ -74,10 +74,10 @@ export default function OurCraft() {
                   </div>
                 </div>
 
-                {/* STICKER NOTE (Positioned Over the Image Container) */}
+                {/* YELLOW STICKER NOTE (Matched to Partnership Page) */}
                 {item.fact && (
                   <div
-                    className={`absolute z-20 max-w-[210px] p-4 bg-[#fbf9f4] border border-gray-200/80 shadow-[0_10px_25px_rgba(0,0,0,0.08)] rounded-sm rotate-[-2deg] transition-transform duration-300 hover:rotate-0 hover:scale-105 ${
+                    className={`absolute z-20 max-w-[210px] p-4 bg-[#FFBC57] text-[#3d2407] shadow-lg rounded-2xl rotate-[-3deg] transition-transform duration-300 hover:rotate-0 hover:scale-105 ${
                       isImageLeft
                         ? "-top-4 -right-2 md:top-6 md:-right-6"
                         : "-bottom-4 -left-2 md:bottom-6 md:-left-6"
@@ -85,16 +85,24 @@ export default function OurCraft() {
                   >
                     <div className="flex items-start gap-2">
                       {item.factIcon && (
-                        <span className="text-base leading-none">
+                        <span className="text-base leading-none select-none">
                           {item.factIcon}
                         </span>
                       )}
-                      <p className="font-sans text-[0.75rem] text-gray-700 leading-snug">
-                        <strong className="font-bold text-gray-900">
-                          {item.fact.split(":")[0]}:
+                      <div className="font-sans text-[0.78rem] leading-snug font-medium">
+                        <strong className="block font-bold uppercase tracking-wider text-[0.65rem] text-[#523004] mb-0.5">
+                          {item.fact.includes(":")
+                            ? item.fact.split(":")[0]
+                            : "CRAFT DETAIL"}
                         </strong>
-                        {item.fact.substring(item.fact.indexOf(":") + 1)}
-                      </p>
+                        <p className="text-[#3b2207]">
+                          {item.fact.includes(":")
+                            ? item.fact
+                                .substring(item.fact.indexOf(":") + 1)
+                                .trim()
+                            : item.fact}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
