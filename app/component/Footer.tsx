@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import GraffitiBg from "../../public/Wallart_Grafiti.jpeg";
 
@@ -8,10 +7,10 @@ const Footer = () => {
       className="relative w-full bg-cover bg-center bg-no-repeat text-white overflow-hidden"
       style={{ backgroundImage: `url(${GraffitiBg.src})` }}
     >
-      {/* Dark Overlay for Crisp Contrast */}
       <div className="absolute inset-0 bg-black/85 backdrop-blur-[2px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:px-16 md:py-16">
+      {/* Added pb-24 on mobile to prevent bottom menu overlap */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-24 md:px-16 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* BRAND COLUMN */}
           <div className="col-span-2 md:col-span-1 flex flex-col justify-between">

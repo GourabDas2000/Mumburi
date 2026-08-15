@@ -1,6 +1,6 @@
 "use client";
 
-import collabData from "./partnershipsData.json";
+import collabData from "../data/PartnershipsData.json";
 
 const CollaborationPage = () => {
   const { hero, makers, wholesale } = collabData;

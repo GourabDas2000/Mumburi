@@ -1,0 +1,99 @@
+{
+  "hero": {
+    "desktop": {
+      "badge": "Locally Crafted & Sustainably Sourced",
+      "titleLine1": "Crafted by Hand,",
+      "titleLine2": "Curated for You",
+      "description": "Discover a collection of artisanal treasures that celebrate the slow-living spirit. Each piece tells a unique story of heritage and heart.",
+      "buttonText": "Explore Collection",
+      "buttonLink": "/stack"
+    },
+    "mobile": {
+      "titleLine1": "Crafted by Hand,",
+      "titleLine2": "Curated for You",
+      "description": "Explore a collection where every piece tells a story of tradition, patience, and the touch of a master artisan.",
+      "primaryButtonText": "Shop Collections",
+      "primaryButtonLink": "/stack",
+      "secondaryButtonText": "Know Our Craft",
+      "secondaryButtonLink": "/craft"
+    },
+    "philosophy": {
+      "quote": "\"The beauty of the handmade lies in the imperfections that tell the story of the artisan's hands.\"",
+      "label": "The Mumburi Philosophy"
+    }
+  },
+  "collectionsSection": {
+    "title": "The Mumburi Collections",
+    "description": "Explore our curated categories, each featuring products made with traditional techniques and modern sensibilities.",
+    "viewAllText": "View All Products",
+    "viewAllHref": "/stack",
+    "items": [
+      {
+        "id": "tote-bags",
+        "title": "Tote Bags",
+        "href": "/stack?category=Tote%20Bags",
+        "imageKey": "ToteImg",
+        "isPlaceholder": false,
+        "gridClass": "md:col-span-7 md:h-[360px]"
+      },
+      {
+        "id": "jewellery",
+        "title": "Jewellery",
+        "href": "/stack?category=Jewellery",
+        "imageKey": "JewelryImg",
+        "isPlaceholder": false,
+        "gridClass": "md:col-span-5 md:h-[360px]"
+      },
+      {
+        "id": "diy-kits",
+        "title": "DIY Kits",
+        "href": "/stack?category=DIY%20Kits",
+        "imageKey": null,
+        "isPlaceholder": true,
+        "gridClass": "md:col-span-4 md:h-[280px]"
+      },
+      {
+        "id": "customized-kits",
+        "title": "Customized Kits",
+        "href": "/bespoke",
+        "imageKey": null,
+        "isPlaceholder": true,
+        "gridClass": "md:col-span-3 md:h-[280px]"
+      },
+      {
+        "id": "our-craft",
+        "title": "Our Craft",
+        "href": "/craft",
+        "imageKey": "CraftImg",
+        "isPlaceholder": false,
+        "gridClass": "md:col-span-5 md:h-[280px]"
+      }
+    ]
+  },
+  "sayHelloSection": {
+    "main": {
+      "title": "Say Hello",
+      "description": "Are you a fellow maker or small shop owner? Drop us a line. We'd love to hear what you're working on and how we might support each other.",
+      "whatsappButtonText": "Chat on WhatsApp",
+      "whatsappUrl": "https://wa.me/1234567890",
+      "emailButtonText": "Email Me",
+      "emailAddress": "hello@mumburi.com"
+    },
+    "social": {
+      "title": "Stay in our circle",
+      "subtitle": "A peek behind the loom and into the kiln. Join our daily journey.",
+      "links": [
+        {
+          "id": "instagram",
+          "name": "Instagram",
+          "url": "https://instagram.com"
+        },
+        {
+          "id": "facebook",
+          "name": "Facebook",
+          "url": "https://facebook.com"
+        }
+      ]
+    }
+  }
+}

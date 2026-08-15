@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import bespokeData from "../bespoke/bespokeData.json";
+import bespokeData from "../data/BespokeData.json";
 
 const BespokeJourney = () => {
   const { hero, dialogue, testimonial } = bespokeData;

@@ -1,21 +1,22 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../../public/Mumburi_logo.png";
 import "../globals.css";
-
-// Import your custom useStack hook (adjust file path if different)
 import { useStack } from "../context/StackContext";
 
 const Navbar = () => {
   const pathname = usePathname();
-
-  // Extract totalCount directly from your StackContext hook
   const { totalCount } = useStack();
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Navigation items array
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Our Stack", href: "/stack" },
@@ -24,16 +25,12 @@ const Navbar = () => {
     { name: "Partnerships", href: "/partnerships" },
   ];
 
-  // Helper function to check if a link is active
   const isActive = (path = "") => pathname === path;
 
   return (
     <>
-      {/* =========================================================================
-          1. LAPTOP & TABLET HEADER (Desktop Navigation)
-          ========================================================================= */}
-      <header className="hidden md:flex w-full px-8 lg:px-12 py-6 items-center justify-between border-b border-gray-100 bg-[var(--bg-color)]">
-        {/* Branding Logo */}
+      {/* 1. LAPTOP & TABLET HEADER */}
+      <header className="sticky top-0 z-50 hidden md:flex w-full px-8 lg:px-12 py-6 items-center justify-between border-b border-gray-100 bg-[var(--bg-color)]">
         <Link
           href="/"
           className="font-serif font-bold text-[var(--accent-color)] tracking-wide whitespace-nowrap text-[clamp(1.35rem,2.5vw,1.75rem)]"
@@ -41,11 +38,9 @@ const Navbar = () => {
           Mumburi
         </Link>
 
-        {/* Full Navigation Menu */}
         <ul className="flex items-center justify-center flex-1 mx-4 lg:mx-8 font-sans font-medium uppercase tracking-[0.15em] text-[var(--nav-text-color)] text-[clamp(0.7rem,1.1vw,0.8125rem)] gap-[clamp(1rem,2vw,1.5rem)]">
           {navLinks.map((link) => {
             const active = isActive(link.href);
-
             return (
               <li
                 key={link.href}
@@ -61,11 +56,9 @@ const Navbar = () => {
           })}
         </ul>
 
-        {/* Laptop Right Action Buttons (WhatsApp, Email & Order Icon - SHOWS ONLY ON LAPTOP) */}
         <div className="flex items-center gap-4 lg:gap-6">
-          {/* WHATSAPP BUTTON */}
           <a
-            href="https://wa.me/919876543210" // Replace with your phone number
+            href="https://wa.me/919876543210"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#10D864] hover:bg-[#0ebf58] text-white font-sans font-bold text-[clamp(0.65rem,0.9vw,0.75rem)] uppercase tracking-[0.12em] px-3.5 py-2 flex items-center gap-1.5 transition-all duration-200 shadow-xs hover:shadow-md cursor-pointer"
@@ -76,15 +69,13 @@ const Navbar = () => {
             WHATSAPP
           </a>
 
-          {/* EMAIL ME BUTTON */}
           <a
-            href="mailto:contact@mumburi.com" // Replace with your email address
+            href="mailto:contact@mumburi.com"
             className="font-sans font-semibold tracking-[0.15em] uppercase text-[var(--nav-text-color)] hover:text-[var(--primary-color)] transition-colors text-[clamp(0.68rem,1vw,0.78rem)] whitespace-nowrap cursor-pointer"
           >
             EMAIL ME
           </a>
 
-          {/* ORDER ICON WITH STACK COUNT BADGE */}
           <Link
             href="/order"
             className="relative p-1 text-[var(--nav-text-color)] hover:text-[var(--primary-color)] transition-colors flex items-center"
@@ -102,10 +93,8 @@ const Navbar = () => {
                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
               />
             </svg>
-
-            {/* BADGE COUNT */}
-            {totalCount > 0 && (
-              <span className="absolute -top-1.5 -right-2 bg-[#8C4327] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none shadow-xs">
+            {isMounted && totalCount > 0 && (
+              <span className="absolute top-1.5 -right-2 bg-[#8C4327] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none shadow-xs">
                 {totalCount}
               </span>
             )}
@@ -113,10 +102,8 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* =========================================================================
-          2. MOBILE TOP BAR (Logo Left + Order Right)
-          ========================================================================= */}
-      <header className="md:hidden w-full px-6 py-4 flex items-center justify-between border-b border-gray-100 bg-[var(--bg-color)]">
+      {/* 2. MOBILE TOP BAR */}
+      <header className="sticky top-0 z-50 md:hidden w-full px-6 py-4 flex items-center justify-between border-b border-gray-100 bg-[var(--bg-color)]">
         <Link
           href="/"
           className="inline-flex items-center text-[clamp(1.2rem,5vw,1.4rem)]"
@@ -133,13 +120,12 @@ const Navbar = () => {
           </div>
         </Link>
 
-        {/* MOBILE ORDER ICON WITH STACK COUNT BADGE */}
         <Link
           href="/order"
           className="relative p-1 text-[var(--nav-text-color)] flex items-center"
         >
           <svg
-            className="w-4 h-4"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -151,21 +137,17 @@ const Navbar = () => {
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
             />
           </svg>
-
-          {/* MOBILE BADGE COUNT */}
-          {totalCount > 0 && (
-            <span className="absolute -top-1.5 -right-2 bg-[#8C4327] text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center leading-none">
+          {isMounted && totalCount > 0 && (
+            <span className="absolute -top-1 -right-1.5 bg-[#8C4327] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
               {totalCount}
             </span>
           )}
         </Link>
       </header>
 
-      {/* =========================================================================
-          3. MOBILE FIXED BOTTOM MENU
-          ========================================================================= */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-[var(--bg-color)]/95 backdrop-blur-md border-t border-gray-100 py-4 px-6 z-50 shadow-lg pb-safe">
-        <ul className="flex flex-nowrap justify-between items-center font-sans font-medium tracking-[0.12em] text-[var(--nav-text-color)] uppercase text-[clamp(0.68rem,3.2vw,0.75rem)] overflow-x-auto gap-4">
+      {/* 3. MOBILE FIXED BOTTOM MENU */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-[var(--bg-color)]/95 backdrop-blur-md border-t border-gray-100 py-3 px-3 z-40 shadow-lg">
+        <ul className="flex items-center justify-around font-sans font-medium tracking-wider text-[var(--nav-text-color)] uppercase text-[clamp(0.6rem,2.5vw,0.7rem)] gap-1">
           {navLinks.map((link) => {
             const active = isActive(link.href);
 

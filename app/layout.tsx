@@ -4,6 +4,7 @@ import "./globals.css";
 import Navber from "./component/Navber";
 import Footer from "./component/Footer";
 import {StackProvider } from './context/StackContext'
+import ScrollToTop from "./component/ScrollToTop";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <StackProvider>
           <Navber />
           {children}
+          <ScrollToTop/>
           <Footer />
         </StackProvider>
       </body>

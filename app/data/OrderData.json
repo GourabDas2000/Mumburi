@@ -1,0 +1,57 @@
+{
+  "emptyState": {
+    "title": "Your Stack is Empty",
+    "description": "Looks like you haven't added any handcrafted items to your stack yet.",
+    "buttonText": "Explore Collection",
+    "buttonLink": "/"
+  },
+  "header": {
+    "title": "Review & Order Stack",
+    "copiedAlert": "📋 Order summary copied to your clipboard! Opening application..."
+  },
+  "itemsSection": {
+    "title": "Items",
+    "clearStackText": "Clear Stack"
+  },
+  "bespokeSection": {
+    "title": "✨ Have something specific in mind? Tell us.",
+    "description": "Request custom colors, specific themes, or custom messaging.",
+    "placeholder": "e.g. Can you customize the tote with blue floral patterns instead of red?"
+  },
+  "summarySection": {
+    "title": "Order Summary",
+    "subtotalLabel": "Subtotal",
+    "deliveryLabel": "Delivery Charges",
+    "deliveryCalculationText": "Calculated on confirmation",
+    "totalLabel": "Total",
+    "userNoteLabel": "Delivery Address or Custom Instructions",
+    "userNotePlaceholder": "Enter your shipping address or preferred delivery details...",
+    "clearCartCheckboxLabel": "I understand that submitting this order request will clear my current Stack."
+  },
+  "dispatch": {
+    "whatsapp": {
+      "phoneNumber": "919000000000",
+      "buttonText": "Order via WhatsApp"
+    },
+    "email": {
+      "emailAddress": "orders@mumburi.com",
+      "subject": "New Order Request - Mumburi Stack",
+      "buttonText": "Order via Email"
+    }
+  },
+  "reassurance": {
+    "prefix": "💡 ",
+    "preferredChannelBold": "WhatsApp is our preferred channel",
+    "middleText": " for quick confirmations. Placing an order copies your stack summary automatically and opens your preferred app. Expect a response within ",
+    "timeframeBold": "2–4 hours",
+    "suffix": "."
+  },
+  "payload": {
+    "header": "📦 *NEW ORDER REQUEST - MUMBURI*\n===================================\n\n",
+    "divider": "===================================\n",
+    "totalPrefix": "💰 *TOTAL AMOUNT*: INR ",
+    "addressHeader": "📍 *Delivery Address / Notes*:\n",
+    "bespokeHeader": "✨ *Bespoke Customization Request*:\n",
+    "footer": "Thank you!"
+  }
+}

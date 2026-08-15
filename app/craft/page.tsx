@@ -1,5 +1,5 @@
 import React from "react";
-import craftData from "../craft/craftData.json"; // Adjust the import path to match your folder structure
+import craftData from "../data/CraftData.json"; // Adjust the import path to match your folder structure
 
 export default function OurCraft() {
   const { header, sections } = craftData;
