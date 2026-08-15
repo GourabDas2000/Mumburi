@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, Suspense } from "react";
+import React, { useMemo, useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import stackData from "../data/StackData.json";
 
@@ -10,16 +10,46 @@ import ProductHandPaintedTextiles from "../component/ProductHandPaintedTextiles"
 import ProductJewelery from "../component/ProductJewelery";
 import ProductTotebags from "../component/ProductTotebags";
 
+export interface Product {
+  id: string | number;
+  productName?: string;
+  productCategory?: string[];
+  theme?: string | string[];
+  productTheme?: string | string[];
+  themes?: string[];
+  productTagline?: string;
+  productDescription?: string;
+  productTags?: string[];
+  productPrice?: number | string;
+  currency?: string;
+  productStory?: string;
+  [key: string]: any;
+}
+
+interface StackContentProps {
+  products: Product[];
+}
+
+interface OurStackPageProps {
+  products?: Product[];
+}
+
 const ITEMS_PER_PAGE = 6;
 
-function StackContent({ products }) {
+// Helper to reliably normalize string | string[] into string[]
+const normalizeArray = (val?: string | string[]): string[] => {
+  if (!val) return [];
+  return Array.isArray(val) ? val : [val];
+};
+
+function StackContent({ products }: StackContentProps) {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedTheme, setSelectedTheme] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedTheme, setSelectedTheme] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Sync category filter with URL search param
   useEffect(() => {
@@ -29,22 +59,25 @@ function StackContent({ products }) {
   }, [categoryParam]);
 
   // Safely extract unique categories
-  const categories = useMemo(() => {
+  const categories = useMemo<string[]>(() => {
     const list = Array.isArray(products) ? products : [];
     const extracted = list.flatMap((item) => item.productCategory || []);
     return ["All", ...Array.from(new Set(extracted))];
   }, [products]);
 
-  // Extract unique themes
-  const themes = useMemo(() => {
+  // Safely extract unique themes (preventing string-splitting bugs)
+  const themes = useMemo<string[]>(() => {
     const list = Array.isArray(products) ? products : [];
-    const extracted = list.flatMap(
-      (item) => item.theme || item.productTheme || item.themes || [],
-    );
+    const extracted = list.flatMap((item) => [
+      ...normalizeArray(item.theme),
+      ...normalizeArray(item.productTheme),
+      ...normalizeArray(item.themes),
+    ]);
+
     const defaultThemes = ["Friends", "How I Met Your Mother"];
     const excludedThemes = ["creative", "floral", "nature"];
 
-    const combined = new Set([...defaultThemes, ...extracted]);
+    const combined = new Set<string>([...defaultThemes, ...extracted]);
 
     const filteredThemes = Array.from(combined).filter((thm) => {
       if (!thm || typeof thm !== "string") return false;
@@ -54,8 +87,8 @@ function StackContent({ products }) {
     return ["All", ...filteredThemes];
   }, [products]);
 
-  // Filtering Logic: Broadened to capture all jewellery types
-  const filteredProducts = useMemo(() => {
+  // Filtering Logic
+  const filteredProducts = useMemo<Product[]>(() => {
     const list = Array.isArray(products) ? products : [];
     const query = searchQuery.trim().toLowerCase();
     const selCatLower = selectedCategory.toLowerCase();
@@ -64,24 +97,19 @@ function StackContent({ products }) {
 
     return list.filter((item) => {
       const categoriesList = item.productCategory || [];
-      const itemThemes = item.theme
-        ? Array.isArray(item.theme)
-          ? item.theme
-          : [item.theme]
-        : item.productTheme
-          ? Array.isArray(item.productTheme)
-            ? item.productTheme
-            : [item.productTheme]
-          : item.themes || [];
+      const itemThemes = [
+        ...normalizeArray(item.theme),
+        ...normalizeArray(item.productTheme),
+        ...normalizeArray(item.themes),
+      ];
 
       const matchesCategory =
         selectedCategory === "All" ||
         categoriesList.some((c) => {
           const itemCatLower = String(c).toLowerCase();
-          if (isJewelleryFilter) {
-            return itemCatLower.includes("jewel");
-          }
-          return itemCatLower === selCatLower;
+          return isJewelleryFilter
+            ? itemCatLower.includes("jewel")
+            : itemCatLower === selCatLower;
         });
 
       const matchesTheme =
@@ -112,22 +140,22 @@ function StackContent({ products }) {
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
 
-  const currentProducts = useMemo(() => {
+  const currentProducts = useMemo<Product[]>(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredProducts, currentPage]);
 
-  const handleCategorySelect = (category = "All") => {
+  const handleCategorySelect = (category: string = "All"): void => {
     setSelectedCategory(category);
     setCurrentPage(1);
   };
 
-  const handleThemeSelect = (theme = "All") => {
+  const handleThemeSelect = (theme: string = "All"): void => {
     setSelectedTheme(theme);
     setCurrentPage(1);
   };
 
-  const handlePageChange = (newPage = 1) => {
+  const handlePageChange = (newPage: number = 1): void => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
       if (typeof window !== "undefined") {
@@ -136,7 +164,7 @@ function StackContent({ products }) {
     }
   };
 
-  const renderProductCard = (product) => {
+  const renderProductCard = (product: Product): React.ReactNode => {
     const mainCategory = product.productCategory?.[0] || "";
     const categoryKey = mainCategory.toLowerCase().trim();
 
@@ -166,9 +194,9 @@ function StackContent({ products }) {
   return (
     <main className="w-full min-h-screen bg-[#FAF8F5] text-[#111827] font-sans pb-20">
       <div className="max-w-6xl mx-auto px-4 md:px-8 pt-6">
-        {/* Banner */}
+        {/* Hero Banner */}
         <div
-          className="relative w-full h-[320px] md:h-[400px] rounded-3xl overflow-hidden mb-12 flex items-center justify-center bg-cover bg-center shadow-sm"
+          className="relative w-full h-[320px] md:h-[400px] rounded-3xl overflow-hidden mb-12 flex items-center justify-center bg-cover bg-center shadow-xs"
           style={{ backgroundImage: `url('/hero-bg.jpg')` }}
         >
           <div className="absolute inset-0 bg-black/25" />
@@ -183,20 +211,20 @@ function StackContent({ products }) {
             <button
               type="button"
               onClick={() => handleThemeSelect("Puja")}
-              className="py-3.5 px-8 bg-[#8C4327] hover:bg-[#72341d] text-white font-sans text-xs md:text-sm font-bold uppercase tracking-[0.15em] rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
+              className="py-3.5 px-8 bg-[#8C4327] hover:bg-[#72341d] text-white font-sans text-xs md:text-sm font-bold uppercase tracking-[0.15em] rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-xs hover:shadow-md active:scale-95 cursor-pointer"
             >
               Shop Pujo Special
             </button>
           </div>
         </div>
 
-        {/* Search */}
+        {/* Search Field */}
         <div className="w-full max-w-2xl mx-auto mb-10">
           <div className="relative flex items-center">
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
@@ -207,7 +235,7 @@ function StackContent({ products }) {
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 text-gray-400 hover:text-gray-600 text-sm font-bold"
+                className="absolute right-4 text-gray-400 hover:text-gray-600 text-sm font-bold cursor-pointer"
               >
                 ✕
               </button>
@@ -308,7 +336,7 @@ function StackContent({ products }) {
           </div>
         )}
 
-        {/* Pagination */}
+        {/* Pagination Controls */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-4 text-xs font-sans text-gray-600">
             <button
@@ -354,7 +382,9 @@ function StackContent({ products }) {
   );
 }
 
-export default function OurStackPage({ products = stackData }) {
+export default function OurStackPage({
+  products = stackData as Product[],
+}: OurStackPageProps) {
   return (
     <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
       <StackContent products={products} />

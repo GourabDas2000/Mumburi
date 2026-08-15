@@ -6,30 +6,66 @@ import { useRouter } from "next/navigation";
 import { useStack } from "../../context/StackContext";
 import stackData from "../../data/StackData.json";
 
-export default function ProductDetailPage({ params }) {
+export interface Product {
+  id: string | number;
+  productName?: string;
+  productCategory?: string[];
+  theme?: string[];
+  occasion?: string[];
+  creator?: string[];
+  productTagline?: string;
+  productDescription?: string;
+  productStory?: string;
+  productMaterial?: string[];
+  productTags?: string[];
+  productPrice?: number | string;
+  price?: number | string;
+  currency?: string;
+  productDiscount?: number;
+  coverPageTag?: string;
+  coverPagePhoto?: string;
+  cartImage?: string;
+  images?: string[];
+  isAvailable?: boolean;
+  productSocialMediaLink?: string;
+  others?: string;
+  [key: string]: any;
+}
+
+interface ProductDetailPageProps {
+  params: Promise<{ id: string }> | { id: string };
+}
+
+export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const router = useRouter();
-  // Unwrap params if using Next.js 13/14 client components
-  const resolvedParams = React.use(params);
+
+  // Unwrap params dynamically (Next.js 15 Promise vs Next.js 14 object support)
+  const resolvedParams =
+    params && typeof (params as any).then === "function"
+      ? React.use(params as Promise<{ id: string }>)
+      : (params as { id: string });
+
   const productId = resolvedParams?.id;
 
-  const product =
-    stackData.find((item) => String(item.id) === String(productId)) ||
-    stackData[0];
+  const product: Product =
+    (stackData as Product[]).find(
+      (item) => String(item.id) === String(productId),
+    ) || (stackData[0] as Product);
 
   const { addToStack, removeFromStack, updateQuantity, getItemQuantity } =
     useStack();
 
-  const count = getItemQuantity ? getItemQuantity(product.id) : 0;
-  const isAvailable = product.isAvailable !== false;
+  const count: number = getItemQuantity ? getItemQuantity(product.id) : 0;
+  const isAvailable: boolean = product.isAvailable !== false;
 
-  const allImages =
+  const allImages: string[] =
     Array.isArray(product.images) && product.images.length > 0
       ? product.images
       : [product.cartImage || product.coverPagePhoto || "/placeholder.jpg"];
 
-  const [selectedImage, setSelectedImage] = useState(allImages[0]);
+  const [selectedImage, setSelectedImage] = useState<string>(allImages[0]);
 
-  const handleIncrement = () => {
+  const handleIncrement = (): void => {
     if (count === 0) {
       addToStack(product);
     } else if (updateQuantity) {
@@ -37,7 +73,7 @@ export default function ProductDetailPage({ params }) {
     }
   };
 
-  const handleDecrement = () => {
+  const handleDecrement = (): void => {
     if (count <= 1) {
       removeFromStack(product.id);
     } else if (updateQuantity) {
@@ -45,11 +81,11 @@ export default function ProductDetailPage({ params }) {
     }
   };
 
-  const handleRemoveCategory = () => {
+  const handleRemoveCategory = (): void => {
     removeFromStack(product.id);
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = (): void => {
     if (count === 0) {
       addToStack(product);
     }
@@ -67,7 +103,7 @@ export default function ProductDetailPage({ params }) {
           ← Back to Stack
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-6 md:p-10 rounded-3xl border border-stone-200 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-6 md:p-10 rounded-3xl border border-stone-200 shadow-xs">
           {/* Left Column: Main Image Gallery */}
           <div className="flex flex-col gap-4">
             <div className="relative w-full aspect-square bg-stone-100 rounded-2xl overflow-hidden border border-stone-200">
@@ -85,15 +121,15 @@ export default function ProductDetailPage({ params }) {
               )}
             </div>
 
-            {/* Thumbnail Gallery (Only shown if multiple images exist) */}
+            {/* Thumbnail Gallery */}
             {allImages.length > 1 && (
               <div className="flex gap-3 overflow-x-auto pb-2">
-                {allImages.map((img, idx) => (
+                {allImages.map((img: string, idx: number) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setSelectedImage(img)}
-                    className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all cursor-pointer flex-shrink-0 ${
+                    className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${
                       selectedImage === img
                         ? "border-[#8C4327] scale-105"
                         : "border-stone-200 opacity-70 hover:opacity-100"
@@ -117,7 +153,7 @@ export default function ProductDetailPage({ params }) {
               {Array.isArray(product.productCategory) &&
                 product.productCategory.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {product.productCategory.map((cat, idx) => (
+                    {product.productCategory.map((cat: string, idx: number) => (
                       <span
                         key={idx}
                         className="text-[10px] font-bold uppercase tracking-wider bg-[#3A4B28] text-white px-2.5 py-1 rounded-full"
@@ -149,11 +185,11 @@ export default function ProductDetailPage({ params }) {
                     {product.currency === "INR" ? "₹" : "$"}
                     {product.productPrice ?? product.price}
                   </span>
-                  {product.productDiscount > 0 && (
+                  {product.productDiscount && product.productDiscount > 0 ? (
                     <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-full border border-green-200">
                       {product.productDiscount}% OFF
                     </span>
-                  )}
+                  ) : null}
                 </div>
               )}
 
@@ -196,14 +232,16 @@ export default function ProductDetailPage({ params }) {
                       Materials
                     </h4>
                     <div className="flex flex-wrap gap-1.5">
-                      {product.productMaterial.map((mat, idx) => (
-                        <span
-                          key={idx}
-                          className="text-[11px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded border border-stone-200"
-                        >
-                          {mat}
-                        </span>
-                      ))}
+                      {product.productMaterial.map(
+                        (mat: string, idx: number) => (
+                          <span
+                            key={idx}
+                            className="text-[11px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded border border-stone-200"
+                          >
+                            {mat}
+                          </span>
+                        ),
+                      )}
                     </div>
                   </div>
                 )}
@@ -219,7 +257,7 @@ export default function ProductDetailPage({ params }) {
                         Theme
                       </h4>
                       <div className="flex flex-wrap gap-1">
-                        {product.theme.map((t, idx) => (
+                        {product.theme.map((t: string, idx: number) => (
                           <span
                             key={idx}
                             className="text-[10px] font-semibold bg-[#4B3B68]/10 text-[#4B3B68] px-2 py-0.5 rounded"
@@ -238,7 +276,7 @@ export default function ProductDetailPage({ params }) {
                           Occasion
                         </h4>
                         <div className="flex flex-wrap gap-1">
-                          {product.occasion.map((o, idx) => (
+                          {product.occasion.map((o: string, idx: number) => (
                             <span
                               key={idx}
                               className="text-[10px] font-semibold bg-amber-50 text-[#8C4327] px-2 py-0.5 rounded"
@@ -266,7 +304,7 @@ export default function ProductDetailPage({ params }) {
               {Array.isArray(product.productTags) &&
                 product.productTags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {product.productTags.map((tag, idx) => (
+                    {product.productTags.map((tag: string, idx: number) => (
                       <span
                         key={idx}
                         className="text-[10px] font-semibold bg-stone-100 text-stone-600 px-2 py-0.5 rounded-full"
@@ -295,7 +333,7 @@ export default function ProductDetailPage({ params }) {
               )}
             </div>
 
-            {/* Actions: Add to Cart / Counter / Buy Now */}
+            {/* Actions */}
             <div className="flex flex-col gap-3 pt-6 mt-6 border-t border-stone-200">
               {count === 0 ? (
                 <button

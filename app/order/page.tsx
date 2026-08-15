@@ -6,6 +6,18 @@ import Image from "next/image";
 import { useStack } from "../context/StackContext";
 import orderData from "../data/OrderData.json";
 
+interface StackItem {
+  id: string;
+  productName: string;
+  category: string;
+  price: number;
+  currency: string;
+  quantity: number;
+  cartImage: string;
+  tagline?: string;
+  [key: string]: any;
+}
+
 export default function OrderPage() {
   const {
     stackItems,
@@ -16,19 +28,19 @@ export default function OrderPage() {
     totalCount,
   } = useStack();
 
-  const [userNote, setUserNote] = useState("");
-  const [bespokeNote, setBespokeNote] = useState("");
-  const [isBespokeOpen, setIsBespokeOpen] = useState(false);
-  const [shouldClearCart, setShouldClearCart] = useState(true);
-  const [copiedAlert, setCopiedAlert] = useState(false);
+  const [userNote, setUserNote] = useState<string>("");
+  const [bespokeNote, setBespokeNote] = useState<string>("");
+  const [isBespokeOpen, setIsBespokeOpen] = useState<boolean>(false);
+  const [shouldClearCart, setShouldClearCart] = useState<boolean>(true);
+  const [copiedAlert, setCopiedAlert] = useState<boolean>(false);
 
   // ----------------------------------------------------
   // Helper to generate formatted text payload
   // ----------------------------------------------------
-  const buildOrderPayload = () => {
+  const buildOrderPayload = (): string => {
     let summary = orderData.payload.header;
 
-    stackItems.forEach((item, index) => {
+    (stackItems as StackItem[]).forEach((item: StackItem, index: number) => {
       summary += `${index + 1}. *${item.productName}*\n`;
       summary += `   • Item ID: ${item.id}\n`;
       summary += `   • Category: ${item.category}\n`;
@@ -58,7 +70,7 @@ export default function OrderPage() {
   // ----------------------------------------------------
   // Dispatch Handler (Clipboard Copy + Link Redirection)
   // ----------------------------------------------------
-  const handlePlaceOrder = async (target) => {
+  const handlePlaceOrder = async (target: "whatsapp" | "email") => {
     const payload = buildOrderPayload();
 
     try {
@@ -158,7 +170,7 @@ export default function OrderPage() {
             </button>
           </div>
 
-          {stackItems.map((item) => (
+          {(stackItems as StackItem[]).map((item: StackItem) => (
             <div
               key={item.id}
               className="flex items-center gap-4 p-4 bg-white border border-stone-200 rounded-xl shadow-sm"
@@ -247,7 +259,9 @@ export default function OrderPage() {
                 <textarea
                   rows={3}
                   value={bespokeNote}
-                  onChange={(e) => setBespokeNote(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                    setBespokeNote(e.target.value)
+                  }
                   placeholder={orderData.bespokeSection.placeholder}
                   className="w-full p-3 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-400 focus:outline-none bg-white"
                 />
@@ -291,7 +305,9 @@ export default function OrderPage() {
               <textarea
                 rows={3}
                 value={userNote}
-                onChange={(e) => setUserNote(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setUserNote(e.target.value)
+                }
                 placeholder={orderData.summarySection.userNotePlaceholder}
                 className="w-full p-3 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-400 focus:outline-none"
               />
@@ -303,7 +319,9 @@ export default function OrderPage() {
                 type="checkbox"
                 id="clearCartCheck"
                 checked={shouldClearCart}
-                onChange={(e) => setShouldClearCart(e.target.checked)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setShouldClearCart(e.target.checked)
+                }
                 aria-required="true"
                 className="mt-0.5 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500"
               />
