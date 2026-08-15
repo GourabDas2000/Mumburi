@@ -3,27 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { useStack } from "../context/StackContext";
-
-interface Product {
-  id?: string;
-  productName?: string;
-  productCategory?: string[];
-  productTagline?: string;
-  productStory?: string;
-  productTags?: string[];
-  productPrice?: number;
-  price?: number;
-  currency?: string;
-  cartImage?: string;
-  [key: string]: any;
-}
+import { Product } from "../stack/page";
 
 interface ProductTotebagsProps {
   product?: Product;
 }
 
 export default function ProductTotebags({
-  product = {},
+  product = { id: "" },
 }: ProductTotebagsProps) {
   const { addToStack, removeFromStack, updateQuantity, getItemQuantity } =
     useStack();

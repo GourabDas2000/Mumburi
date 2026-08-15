@@ -3,26 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import { useStack } from "../context/StackContext";
-
-interface Product {
-  id?: string;
-  productName?: string;
-  productCategory?: string[];
-  productTagline?: string;
-  productPrice?: number;
-  price?: number;
-  currency?: string;
-  cartImage?: string;
-  productStory?: string;
-  productTags?: string[];
-  [key: string]: any;
-}
+import { Product } from "../stack/page";
 
 interface ProductDiyKitsProps {
   product?: Product;
 }
 
-export default function ProductDiyKits({ product = {} }: ProductDiyKitsProps) {
+export default function ProductDiyKits({
+  product = { id: "" },
+}: ProductDiyKitsProps) {
   const { addToStack, removeFromStack, updateQuantity, getItemQuantity } =
     useStack();
 
