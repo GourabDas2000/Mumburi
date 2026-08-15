@@ -4,39 +4,60 @@ import React from "react";
 import Link from "next/link";
 import { useStack } from "../context/StackContext";
 
-export default function ProductCustomizeKits({ product = {} }) {
+interface Product {
+  id?: string;
+  productName?: string;
+  productCategory?: string[];
+  productTagline?: string;
+  productStory?: string;
+  productTags?: string[];
+  productPrice?: number;
+  price?: number;
+  currency?: string;
+  cartImage?: string;
+  [key: string]: any;
+}
+
+interface ProductCustomizeKitsProps {
+  product?: Product;
+}
+
+export default function ProductCustomizeKits({
+  product = {},
+}: ProductCustomizeKitsProps) {
   const { addToStack, removeFromStack, updateQuantity, getItemQuantity } =
     useStack();
 
-  const count = getItemQuantity ? getItemQuantity(product.id) : 0;
+  const productId = product.id || "";
+  const count = getItemQuantity && productId ? getItemQuantity(productId) : 0;
   const mainCategory = product.productCategory?.[0] || "Customized Kits";
 
-  const handleIncrement = (e) => {
+  const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e?.stopPropagation) e.stopPropagation();
     if (count === 0) {
       addToStack(product);
-    } else if (updateQuantity) {
-      updateQuantity(product.id, count + 1);
+    } else if (updateQuantity && productId) {
+      updateQuantity(productId, count + 1);
     }
   };
 
-  const handleDecrement = (e) => {
+  const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e?.stopPropagation) e.stopPropagation();
     if (count <= 1) {
-      removeFromStack(product.id);
-    } else if (updateQuantity) {
-      updateQuantity(product.id, count - 1);
+      if (productId) removeFromStack(productId);
+    } else if (updateQuantity && productId) {
+      updateQuantity(productId, count - 1);
     }
   };
 
-  const handleRemoveCategory = (e) => {
+  const handleRemoveCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e?.stopPropagation) e.stopPropagation();
-    removeFromStack(product.id);
+    if (productId) removeFromStack(productId);
   };
 
   return (
     <div className="group flex flex-col justify-between bg-white rounded-xl p-3.5 border border-stone-200 shadow-xs hover:shadow-lg transition-all duration-300">
-      <Link href={`/stack/${product.id || ""}`} className="block w-full">
+      <Link href={`/stack/${productId}`} className="block w-full">
         {/* Shape: Vertical Rectangle (Width < Length / Height) */}
         <div className="w-full aspect-[3/4] bg-stone-100 rounded-lg overflow-hidden relative mb-3">
           <img
