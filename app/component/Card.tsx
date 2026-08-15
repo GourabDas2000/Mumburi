@@ -1,12 +1,14 @@
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import homeData from "../data/HomeData.json";
 
 import ToteImg from "../../public/Totebag.png";
 import JewelryImg from "../../public/Jewelery.png";
 import CraftImg from "../../public/OurCraft.png";
 
-const imageMap = {
+// Add Record<string, StaticImageData> type here
+const imageMap: Record<string, StaticImageData> = {
   ToteImg,
   JewelryImg,
   CraftImg,
@@ -46,6 +48,7 @@ const Card = () => {
         "
       >
         {items.map((item) => {
+          // Safe key lookup
           const cardImage = item.imageKey ? imageMap[item.imageKey] : null;
 
           return (
@@ -57,7 +60,6 @@ const Card = () => {
                 md:w-auto md:flex-shrink-0 ${item.gridClass}
               `}
             >
-              {/* Image or Placeholder Logic */}
               {item.isPlaceholder || !cardImage ? (
                 <div className="w-full h-full bg-[#f4ebd0]/60 border-2 border-dashed border-[#d9a24a]/40 flex flex-col items-center justify-center p-6 text-center group-hover:bg-[#f4ebd0] transition-colors">
                   <div className="w-12 h-12 rounded-full bg-[#0f3d4c]/10 flex items-center justify-center mb-3 text-[#0f3d4c]">
@@ -89,10 +91,8 @@ const Card = () => {
                 />
               )}
 
-              {/* Bottom Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-              {/* Floating Title Content */}
               <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
                 <h3 className="font-serif text-xl md:text-2xl text-white font-medium tracking-wide">
                   {item.title}
