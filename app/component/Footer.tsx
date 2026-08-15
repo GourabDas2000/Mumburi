@@ -27,25 +27,25 @@ const Footer = () => {
               PAGES
             </h4>
             <Link
-              href="#"
+              href="/stack"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Store
             </Link>
             <Link
-              href="#"
+              href="/blog"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Blog
             </Link>
             <Link
-              href="#"
+              href="/craft"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
-              About Us
+              About Our Product
             </Link>
             <Link
-              href="#"
+              href="/bespoke"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Contact Us
@@ -58,13 +58,13 @@ const Footer = () => {
               COMMUNITY
             </h4>
             <Link
-              href="#"
+              href="/bespoke"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
-              Meet the Creators
+              Make your Own
             </Link>
             <Link
-              href="#"
+              href="/partnerships"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Collaboration
@@ -96,13 +96,13 @@ const Footer = () => {
               SUPPORT
             </h4>
             <Link
-              href="#"
+              href="/returnpolicy"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Shipping & Returns
             </Link>
             <Link
-              href="#"
+              href="/privacypolicy"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Privacy Policy
