@@ -11,7 +11,7 @@ import ProductJewelery from "../component/ProductJewelery";
 import ProductTotebags from "../component/ProductTotebags";
 
 export interface Product {
-  id: string | number;
+  id: string;
   productName?: string;
   productCategory?: string[];
   theme?: string | string[];
@@ -65,7 +65,7 @@ function StackContent({ products }: StackContentProps) {
     return ["All", ...Array.from(new Set(extracted))];
   }, [products]);
 
-  // Safely extract unique themes (preventing string-splitting bugs)
+  // Safely extract unique themes
   const themes = useMemo<string[]>(() => {
     const list = Array.isArray(products) ? products : [];
     const extracted = list.flatMap((item) => [
@@ -383,7 +383,7 @@ function StackContent({ products }: StackContentProps) {
 }
 
 export default function OurStackPage({
-  products = stackData as Product[],
+  products = stackData as unknown as Product[],
 }: OurStackPageProps) {
   return (
     <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
