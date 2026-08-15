@@ -4,39 +4,58 @@ import React from "react";
 import Link from "next/link";
 import { useStack } from "../context/StackContext";
 
-export default function ProductDiyKits({ product = {} }) {
+interface Product {
+  id?: string;
+  productName?: string;
+  productCategory?: string[];
+  productTagline?: string;
+  productPrice?: number;
+  price?: number;
+  currency?: string;
+  cartImage?: string;
+  productStory?: string;
+  productTags?: string[];
+  [key: string]: any;
+}
+
+interface ProductDiyKitsProps {
+  product?: Product;
+}
+
+export default function ProductDiyKits({ product = {} }: ProductDiyKitsProps) {
   const { addToStack, removeFromStack, updateQuantity, getItemQuantity } =
     useStack();
 
-  const count = getItemQuantity ? getItemQuantity(product.id) : 0;
+  const productId = product.id || "";
+  const count = getItemQuantity && productId ? getItemQuantity(productId) : 0;
   const mainCategory = product.productCategory?.[0] || "DIY Kits";
 
-  const handleIncrement = (e) => {
+  const handleIncrement = (e: React.MouseEvent) => {
     if (e?.stopPropagation) e.stopPropagation();
     if (count === 0) {
       addToStack(product);
-    } else if (updateQuantity) {
-      updateQuantity(product.id, count + 1);
+    } else if (updateQuantity && productId) {
+      updateQuantity(productId, count + 1);
     }
   };
 
-  const handleDecrement = (e) => {
+  const handleDecrement = (e: React.MouseEvent) => {
     if (e?.stopPropagation) e.stopPropagation();
     if (count <= 1) {
-      removeFromStack(product.id);
-    } else if (updateQuantity) {
-      updateQuantity(product.id, count - 1);
+      if (productId) removeFromStack(productId);
+    } else if (updateQuantity && productId) {
+      updateQuantity(productId, count - 1);
     }
   };
 
-  const handleRemoveCategory = (e) => {
+  const handleRemoveCategory = (e: React.MouseEvent) => {
     if (e?.stopPropagation) e.stopPropagation();
-    removeFromStack(product.id);
+    if (productId) removeFromStack(productId);
   };
 
   return (
     <div className="group flex flex-col justify-between bg-white rounded-xl p-3.5 border border-stone-200 shadow-xs hover:shadow-lg transition-all duration-300">
-      <Link href={`/stack/${product.id || ""}`} className="block w-full">
+      <Link href={`/stack/${productId}`} className="block w-full">
         {/* Shape: Uneven Organic Circle */}
         <div className="w-full aspect-square bg-[#FAF8F5] mb-3 overflow-hidden rounded-[48%_52%_68%_32%/42%_42%_58%_58%] border border-stone-200 relative group-hover:rounded-[55%_45%_35%_65%/60%_40%_60%_40%] transition-all duration-500">
           <img
