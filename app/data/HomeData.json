@@ -75,9 +75,7 @@
       "title": "Say Hello",
       "description": "Are you a fellow maker or small shop owner? Drop us a line. We'd love to hear what you're working on and how we might support each other.",
       "whatsappButtonText": "Chat on WhatsApp",
-      "whatsappUrl": "https://wa.me/1234567890",
-      "emailButtonText": "Email Me",
-      "emailAddress": "hello@mumburi.com"
+      "emailButtonText": "Email Me"
     },
     "social": {
       "title": "Stay in our circle",

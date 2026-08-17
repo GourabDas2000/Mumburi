@@ -6,15 +6,21 @@ const CollaborationPage = () => {
   const { hero, makers, wholesale } = collabData;
 
   const handleWhatsapp = () => {
-    window.open(
-      "https://wa.me/1234567890?text=Hi%20Mumburi!%20I%27d%20love%20to%20discuss%20a%20collaboration.",
-      "_blank",
+    const rawWhatsapp =
+      process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918240033522";
+    const baseUrl = rawWhatsapp.split("?")[0];
+    const message = encodeURIComponent(
+      "Hi Mumburi! I'd love to discuss a collaboration.",
     );
+    window.open(`${baseUrl}?text=${message}`, "_blank");
   };
 
   const handleEmail = () => {
-    window.location.href =
-      "mailto:hello@mumburi.com?subject=Collaboration Inquiry - Mumburi";
+    const rawEmail =
+      process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "hello@mumburi.com";
+    const cleanEmail = rawEmail.replace(/^mailto:/, "");
+    const subject = encodeURIComponent("Collaboration Inquiry - Mumburi");
+    window.location.href = `mailto:${cleanEmail}?subject=${subject}`;
   };
 
   return (

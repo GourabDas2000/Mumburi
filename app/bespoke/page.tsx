@@ -1,10 +1,17 @@
 "use client";
+
 import { useState } from "react";
 import bespokeData from "../data/BespokeData.json";
 
 const BespokeJourney = () => {
   const { hero, dialogue, testimonial } = bespokeData;
   const [visionText, setVisionText] = useState("");
+
+  const instaUrl =
+    process.env.NEXT_PUBLIC_INSTA_URL ||
+    "https://www.instagram.com/mumburi.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
+
+  const fbUrl = process.env.NEXT_PUBLIC_FB_URL || "https://facebook.com";
 
   // Default string parameter prevents Next.js 'implicit any' build errors
   const handleChipClick = (prompt = "") => {
@@ -20,20 +27,29 @@ const BespokeJourney = () => {
       e.preventDefault();
     }
     if (!visionText) return;
+
+    const rawEmail = process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "hello@mumburi.com";
+    const cleanEmail = rawEmail.replace(/^mailto:/, "");
+
     const subject = encodeURIComponent(
-      "New Bespoke Commission Request - Mumburi",
+      "New Bespoke Commission Request - Mumburi"
     );
     const body = encodeURIComponent(visionText);
-    window.location.href = `mailto:hello@mumburi.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${cleanEmail}?subject=${subject}&body=${body}`;
   };
 
   // Arrow function for WhatsApp submission
   const handleWhatsappSubmit = () => {
     if (!visionText) return;
+
+    const rawWhatsapp =
+      process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918240033522";
+    const baseUrl = rawWhatsapp.split("?")[0];
+
     const message = encodeURIComponent(
-      `Hi Mumburi team! I'd like to discuss a custom piece:\n\n${visionText}`,
+      `Hi Mumburi team! I'd like to discuss a custom piece:\n\n${visionText}`
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, "_blank");
+    window.open(`${baseUrl}?text=${message}`, "_blank");
   };
 
   return (
@@ -170,7 +186,7 @@ const BespokeJourney = () => {
           <div className="flex items-center justify-center gap-4">
             {/* Instagram Link */}
             <a
-              href="https://instagram.com"
+              href={instaUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2.5 px-5 py-2.5 bg-white rounded-full border border-amber-200/80 shadow-xs hover:border-[#0f3d4c] hover:bg-[#FAF8F5] transition-all duration-200 text-[#0f3d4c] text-xs font-semibold group"
@@ -191,7 +207,7 @@ const BespokeJourney = () => {
 
             {/* Facebook Link */}
             <a
-              href="https://facebook.com"
+              href={fbUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2.5 px-5 py-2.5 bg-white rounded-full border border-amber-200/80 shadow-xs hover:border-[#0f3d4c] hover:bg-[#FAF8F5] transition-all duration-200 text-[#0f3d4c] text-xs font-semibold group"

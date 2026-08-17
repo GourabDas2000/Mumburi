@@ -1,12 +1,11 @@
-import React from 'react'
+import MaintenanceNotice from "../component/MaintenanceNotice";
 
-const page = () => {
+export default function ReturnPolicyPage() {
   return (
-    <div>
-      We are sorry for any inconvenience. We are updating our return policy
-      right now. We will notify you shortly. Thank you for your patience.
-    </div>
+    <MaintenanceNotice
+      badgeText="Store Policies"
+      title="Shipping & Returns Update"
+      description="We are revising our shipping guidelines and return process to make order exchanges seamless. Please reach out to support for active order queries."
+    />
   );
 }
-
-export default page

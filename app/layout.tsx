@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navber from "./component/Navber";
 import Footer from "./component/Footer";
-import {StackProvider } from './context/StackContext'
+import { StackProvider } from "./context/StackContext";
 import ScrollToTop from "./component/ScrollToTop";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,12 +30,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body>
+      <body suppressHydrationWarning>
         <StackProvider>
           <Navber />
           {children}
-          <ScrollToTop/>
+          <ScrollToTop />
           <Footer />
         </StackProvider>
       </body>

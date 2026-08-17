@@ -1,9 +1,11 @@
-import React from 'react'
+import MaintenanceNotice from "../component/MaintenanceNotice";
 
-const page = () => {
+export default function PrivacyPolicyPage() {
   return (
-    <div>We are sorry for any inconvenience. We are updating our privacy policy right now. We will notify you shortly. Thank you for your patience.</div>
-  )
+    <MaintenanceNotice
+      badgeText="Policy Updates"
+      title="Privacy Policy Under Review"
+      description="We are currently updating our privacy policy and data compliance documentation. If you have immediate inquiries, feel free to contact us."
+    />
+  );
 }
-
-export default page

@@ -2,6 +2,12 @@ import Link from "next/link";
 import GraffitiBg from "../../public/Wallart_Grafiti.jpeg";
 
 const Footer = () => {
+  // Read environment variables (with fallback defaults)
+  const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "#";
+  const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
+  const contactEmail =
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@mumburi.com";
+
   return (
     <footer
       className="relative w-full bg-cover bg-center bg-no-repeat text-white overflow-hidden"
@@ -14,7 +20,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* BRAND COLUMN */}
           <div className="col-span-2 md:col-span-1 flex flex-col justify-between">
-            <Link href="#" className="inline-block">
+            <Link href="/" className="inline-block">
               <h2 className="font-serif text-3xl md:text-4xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity">
                 Mumburi
               </h2>
@@ -71,23 +77,33 @@ const Footer = () => {
             </Link>
           </div>
 
-          {/* COLUMN 3: SOCIAL */}
+          {/* COLUMN 3: SOCIAL & CONTACT */}
           <div className="flex flex-col gap-3">
             <h4 className="font-sans text-xs tracking-[0.2em] font-bold uppercase text-gray-400 mb-1">
               SOCIAL
             </h4>
-            <Link
-              href="#"
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Facebook
-            </Link>
-            <Link
-              href="#"
+            </a>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
             >
               Instagram
-            </Link>
+            </a>
+            <a
+              href={`mailto:${contactEmail}`}
+              className="text-sm text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              Email Us
+            </a>
           </div>
 
           {/* COLUMN 4: SUPPORT */}

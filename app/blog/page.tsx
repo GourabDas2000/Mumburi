@@ -1,12 +1,11 @@
-import React from 'react'
+import MaintenanceNotice from "../component/MaintenanceNotice";
 
-const page = () => {
+export default function BlogPage() {
   return (
-    <div>
-      We are sorry for any inconvenience. We are starting our blog
-      page now. We will notify you shortly. Thank you for your patience.
-    </div>
+    <MaintenanceNotice
+      badgeText="The Mumburi Journal"
+      title="Stories & Articles Coming Soon"
+      description="We are preparing artisan insights, studio stories, and behind-the-scenes content. Stay tuned for our upcoming launch."
+    />
   );
 }
-
-export default page

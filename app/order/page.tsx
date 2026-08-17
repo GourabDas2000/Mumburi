@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useStack } from "../context/StackContext";
 import orderData from "../data/OrderData.json";
+
+const WHATSAPP_NUMBER = "919876543210";
+const TARGET_EMAIL = "your-email@example.com";
 
 interface StackItem {
   id: string;
@@ -15,10 +18,12 @@ interface StackItem {
   quantity: number;
   cartImage: string;
   tagline?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function OrderPage() {
+  const [mounted, setMounted] = useState<boolean>(false);
+
   const {
     stackItems,
     updateQuantity,
@@ -28,82 +33,83 @@ export default function OrderPage() {
     totalCount,
   } = useStack();
 
+  const typedStackItems = stackItems as StackItem[];
+
   const [userNote, setUserNote] = useState<string>("");
   const [bespokeNote, setBespokeNote] = useState<string>("");
   const [isBespokeOpen, setIsBespokeOpen] = useState<boolean>(false);
-  const [shouldClearCart, setShouldClearCart] = useState<boolean>(true);
+  const [shouldClearCart, setShouldClearCart] = useState<boolean>(false);
   const [copiedAlert, setCopiedAlert] = useState<boolean>(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Bengali");
 
-  // ----------------------------------------------------
-  // Helper to generate formatted text payload
-  // ----------------------------------------------------
+  const languages = ["Bengali", "Hindi", "English"];
+
+  // Prevent hydration mismatch between SSR and client state
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="min-h-[70vh] bg-stone-50" />;
+  }
+
   const buildOrderPayload = (): string => {
-    let summary = orderData.payload.header;
+    let summary = `Hi Mumburi! 👋\n\nI'm looking to pick up a few items:\n\n`;
 
-    (stackItems as StackItem[]).forEach((item: StackItem, index: number) => {
-      summary += `${index + 1}. *${item.productName}*\n`;
-      summary += `   • Item ID: ${item.id}\n`;
-      summary += `   • Category: ${item.category}\n`;
-      if (item.tagline) summary += `   • Tagline: "${item.tagline}"\n`;
-      summary += `   • Price: ${item.currency} ${item.price}\n`;
-      summary += `   • Quantity: ${item.quantity}\n`;
-      summary += `   • Subtotal: ${item.currency} ${item.price * item.quantity}\n`;
-      if (item.cartImage) summary += `   • Image Link: ${item.cartImage}\n`;
-      summary += `\n`;
+    typedStackItems.forEach((item: StackItem) => {
+      const itemSubtotal = item.price * item.quantity;
+      const currencyCode = item.currency || "INR";
+      summary += `• ${item.productName} (${item.category})\n`;
+      summary += `  Qty: ${item.quantity} × ${currencyCode} ${item.price} = ${currencyCode} ${itemSubtotal}\n\n`;
     });
 
-    summary += orderData.payload.divider;
-    summary += `${orderData.payload.totalPrefix}${totalPrice}\n\n`;
+    summary += `Total Amount: INR ${totalPrice}\n\n`;
+    summary += `• Preferred Language: ${selectedLanguage}\n`;
 
     if (userNote.trim()) {
-      summary += `${orderData.payload.addressHeader}${userNote.trim()}\n\n`;
+      summary += `• Delivery Note / Address: ${userNote.trim()}\n`;
     }
 
     if (isBespokeOpen && bespokeNote.trim()) {
-      summary += `${orderData.payload.bespokeHeader}${bespokeNote.trim()}\n\n`;
+      summary += `• Customization Request: ${bespokeNote.trim()}\n`;
     }
 
-    summary += orderData.payload.footer;
+    summary += `\nLooking forward to discussing the details and confirming this with you!`;
     return summary;
   };
 
-  // ----------------------------------------------------
-  // Dispatch Handler (Clipboard Copy + Link Redirection)
-  // ----------------------------------------------------
   const handlePlaceOrder = async (target: "whatsapp" | "email") => {
+    if (!shouldClearCart) return;
+
     const payload = buildOrderPayload();
-
-    try {
-      await navigator.clipboard.writeText(payload);
-      setCopiedAlert(true);
-      setTimeout(() => setCopiedAlert(false), 4000);
-    } catch (err) {
-      console.error("Failed to copy order details to clipboard", err);
-    }
-
     const encodedPayload = encodeURIComponent(payload);
     let targetUrl = "";
 
     if (target === "whatsapp") {
-      const { phoneNumber } = orderData.dispatch.whatsapp;
-      targetUrl = `https://wa.me/${phoneNumber}?text=${encodedPayload}`;
+      const rawPhone =
+        WHATSAPP_NUMBER || orderData.dispatch.whatsapp.phoneNumber || "";
+      const cleanPhone = rawPhone.replace(/[^0-9]/g, "");
+      targetUrl = `https://wa.me/${cleanPhone}?text=${encodedPayload}`;
     } else if (target === "email") {
-      const { emailAddress, subject } = orderData.dispatch.email;
+      const emailAddress =
+        TARGET_EMAIL || orderData.dispatch.email.emailAddress;
+      const subject = orderData.dispatch.email.subject || "New Order Request";
       const encodedSubject = encodeURIComponent(subject);
       targetUrl = `mailto:${emailAddress}?subject=${encodedSubject}&body=${encodedPayload}`;
     }
 
-    if (shouldClearCart) {
-      clearStack();
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(payload).catch((err) => {
+        console.error("Failed to copy order details", err);
+      });
     }
 
-    window.open(targetUrl, "_blank");
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
+    clearStack();
   };
 
-  // ----------------------------------------------------
   // Empty Stack View
-  // ----------------------------------------------------
-  if (stackItems.length === 0) {
+  if (typedStackItems.length === 0) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16">
         <div className="w-20 h-20 mb-6 rounded-full bg-stone-100 flex items-center justify-center text-stone-400">
@@ -129,7 +135,7 @@ export default function OrderPage() {
         </p>
         <Link
           href={orderData.emptyState.buttonLink}
-          className="px-6 py-3 bg-stone-900 text-white text-sm font-medium rounded-md hover:bg-stone-800 transition"
+          className="px-6 py-3 bg-stone-900 text-white text-sm font-medium rounded-md hover:bg-stone-800 transition cursor-pointer"
         >
           {orderData.emptyState.buttonText}
         </Link>
@@ -148,7 +154,8 @@ export default function OrderPage() {
           <span>{orderData.header.copiedAlert}</span>
           <button
             onClick={() => setCopiedAlert(false)}
-            className="text-emerald-600 font-bold ml-4"
+            className="text-emerald-600 font-bold ml-4 hover:text-emerald-800 cursor-pointer"
+            aria-label="Dismiss alert"
           >
             ✕
           </button>
@@ -164,28 +171,27 @@ export default function OrderPage() {
             </span>
             <button
               onClick={clearStack}
-              className="text-xs text-rose-600 hover:text-rose-800 underline"
+              className="text-xs text-rose-600 hover:text-rose-800 underline font-medium cursor-pointer"
             >
               {orderData.itemsSection.clearStackText}
             </button>
           </div>
 
-          {(stackItems as StackItem[]).map((item: StackItem) => (
+          {typedStackItems.map((item: StackItem) => (
             <div
               key={item.id}
               className="flex items-center gap-4 p-4 bg-white border border-stone-200 rounded-xl shadow-sm"
             >
-              {/* Product Thumbnail */}
               <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-stone-100 flex-shrink-0">
                 <Image
                   src={item.cartImage}
                   alt={item.productName}
                   fill
+                  sizes="80px"
                   className="object-cover"
                 />
               </div>
 
-              {/* Product Details */}
               <div className="flex-1 min-w-0">
                 <span className="text-xs uppercase font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded">
                   {item.category}
@@ -203,22 +209,27 @@ export default function OrderPage() {
                 </p>
               </div>
 
-              {/* Quantity Controls & Actions */}
               <div className="flex flex-col items-end gap-2">
                 <div className="flex items-center border border-stone-300 rounded-md bg-stone-50">
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="w-8 h-8 flex items-center justify-center text-stone-600 hover:bg-stone-200 rounded-l-md transition"
+                    onClick={() => {
+                      if (item.quantity > 1) {
+                        updateQuantity(item.id, item.quantity - 1);
+                      } else {
+                        removeFromStack(item.id);
+                      }
+                    }}
+                    className="w-8 h-8 flex items-center justify-center text-stone-600 hover:bg-stone-200 rounded-l-md transition cursor-pointer"
                     aria-label="Decrease quantity"
                   >
                     -
                   </button>
-                  <span className="w-8 text-center text-xs font-semibold text-stone-800">
+                  <span className="w-8 text-center text-xs font-semibold text-stone-800 select-none">
                     {item.quantity}
                   </span>
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="w-8 h-8 flex items-center justify-center text-stone-600 hover:bg-stone-200 rounded-r-md transition"
+                    className="w-8 h-8 flex items-center justify-center text-stone-600 hover:bg-stone-200 rounded-r-md transition cursor-pointer"
                     aria-label="Increase quantity"
                   >
                     +
@@ -227,7 +238,7 @@ export default function OrderPage() {
 
                 <button
                   onClick={() => removeFromStack(item.id)}
-                  className="text-xs text-stone-400 hover:text-rose-600 transition"
+                  className="text-xs text-stone-400 hover:text-rose-600 transition cursor-pointer"
                 >
                   Remove
                 </button>
@@ -239,7 +250,8 @@ export default function OrderPage() {
           <div className="mt-8 border border-dashed border-stone-300 rounded-xl p-4 bg-stone-50/50">
             <button
               onClick={() => setIsBespokeOpen(!isBespokeOpen)}
-              className="w-full flex items-center justify-between text-left"
+              aria-expanded={isBespokeOpen}
+              className="w-full flex items-center justify-between text-left cursor-pointer"
             >
               <div>
                 <p className="text-sm font-semibold text-stone-800">
@@ -277,7 +289,6 @@ export default function OrderPage() {
               {orderData.summarySection.title}
             </h2>
 
-            {/* Price Calculations */}
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-stone-600">
                 <span>
@@ -297,12 +308,39 @@ export default function OrderPage() {
               </div>
             </div>
 
-            {/* Optional Note / Address Box */}
+            {/* Preferred Language Tags */}
             <div>
               <label className="block text-xs font-semibold text-stone-700 mb-2 uppercase tracking-wider">
+                Preferred Discussion Language
+              </label>
+              <div className="flex gap-2">
+                {languages.map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => setSelectedLanguage(lang)}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all cursor-pointer ${
+                      selectedLanguage === lang
+                        ? "bg-amber-800 text-white border-amber-800 shadow-sm"
+                        : "bg-stone-50 text-stone-600 border-stone-300 hover:bg-stone-100"
+                    }`}
+                  >
+                    {lang}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Optional Note / Address Box */}
+            <div>
+              <label
+                htmlFor="userNote"
+                className="block text-xs font-semibold text-stone-700 mb-2 uppercase tracking-wider"
+              >
                 {orderData.summarySection.userNoteLabel}
               </label>
               <textarea
+                id="userNote"
                 rows={3}
                 value={userNote}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -313,7 +351,7 @@ export default function OrderPage() {
               />
             </div>
 
-            {/* Mandatory Cart Clear Checkbox */}
+            {/* Checkbox */}
             <div className="flex items-start gap-3 pt-2">
               <input
                 type="checkbox"
@@ -322,12 +360,11 @@ export default function OrderPage() {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setShouldClearCart(e.target.checked)
                 }
-                aria-required="true"
-                className="mt-0.5 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500"
+                className="mt-0.5 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
               />
               <label
                 htmlFor="clearCartCheck"
-                className="text-xs text-stone-600 cursor-pointer"
+                className="text-xs text-stone-600 cursor-pointer select-none"
               >
                 {orderData.summarySection.clearCartCheckboxLabel}
               </label>
@@ -336,20 +373,35 @@ export default function OrderPage() {
             {/* Dispatch Buttons */}
             <div className="space-y-3 pt-2">
               <button
-                onClick={() => handlePlaceOrder("whatsapp")}
+                type="button"
                 disabled={!shouldClearCart}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg shadow-sm transition"
+                onClick={() => handlePlaceOrder("whatsapp")}
+                className={`w-full flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold rounded-lg shadow-sm transition-all ${
+                  shouldClearCart
+                    ? "bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                    : "bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300 shadow-none opacity-70"
+                }`}
               >
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <svg
+                  className={`w-5 h-5 ${
+                    shouldClearCart ? "fill-current" : "fill-stone-400"
+                  }`}
+                  viewBox="0 0 24 24"
+                >
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                 </svg>
                 <span>{orderData.dispatch.whatsapp.buttonText}</span>
               </button>
 
               <button
-                onClick={() => handlePlaceOrder("email")}
+                type="button"
                 disabled={!shouldClearCart}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-stone-800 hover:bg-stone-900 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg shadow-sm transition"
+                onClick={() => handlePlaceOrder("email")}
+                className={`w-full flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold rounded-lg shadow-sm transition-all ${
+                  shouldClearCart
+                    ? "bg-stone-800 hover:bg-stone-900 text-white cursor-pointer"
+                    : "bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300 shadow-none opacity-70"
+                }`}
               >
                 <svg
                   className="w-5 h-5 fill-none stroke-current"
@@ -366,7 +418,6 @@ export default function OrderPage() {
               </button>
             </div>
 
-            {/* Reassurance & Expectation Note */}
             <div className="bg-stone-50 p-3 rounded-lg border border-stone-200">
               <p className="text-xs text-stone-600 text-center leading-relaxed">
                 {orderData.reassurance.prefix}

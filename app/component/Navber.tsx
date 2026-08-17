@@ -17,6 +17,18 @@ const Navbar = () => {
     setIsMounted(true);
   }, []);
 
+  // Dynamic environment variable overrides with fallback URLs
+  const whatsappUrl =
+    process.env.NEXT_PUBLIC_WHATSAPP_URL ||
+    "https://wa.me/918240033522?text=Hello!";
+
+  const rawEmail =
+    process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "contact@mumburi.com";
+
+  const emailUrl = rawEmail.startsWith("mailto:")
+    ? rawEmail
+    : `mailto:${rawEmail}`;
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Our Stack", href: "/stack" },
@@ -58,7 +70,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4 lg:gap-6">
           <a
-            href="https://wa.me/919876543210"
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#10D864] hover:bg-[#0ebf58] text-white font-sans font-bold text-[clamp(0.65rem,0.9vw,0.75rem)] uppercase tracking-[0.12em] px-3.5 py-2 flex items-center gap-1.5 transition-all duration-200 shadow-xs hover:shadow-md cursor-pointer"
@@ -70,7 +82,7 @@ const Navbar = () => {
           </a>
 
           <a
-            href="mailto:contact@mumburi.com"
+            href={emailUrl}
             className="font-sans font-semibold tracking-[0.15em] uppercase text-[var(--nav-text-color)] hover:text-[var(--primary-color)] transition-colors text-[clamp(0.68rem,1vw,0.78rem)] whitespace-nowrap cursor-pointer"
           >
             EMAIL ME

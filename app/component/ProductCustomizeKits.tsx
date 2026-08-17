@@ -20,7 +20,7 @@ export default function ProductCustomizeKits({
   const mainCategory = product.productCategory?.[0] || "Customized Kits";
 
   const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e?.stopPropagation) e.stopPropagation();
+    e.stopPropagation();
     if (count === 0) {
       addToStack(product);
     } else if (updateQuantity && productId) {
@@ -29,7 +29,7 @@ export default function ProductCustomizeKits({
   };
 
   const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e?.stopPropagation) e.stopPropagation();
+    e.stopPropagation();
     if (count <= 1) {
       if (productId) removeFromStack(productId);
     } else if (updateQuantity && productId) {
@@ -38,14 +38,17 @@ export default function ProductCustomizeKits({
   };
 
   const handleRemoveCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e?.stopPropagation) e.stopPropagation();
+    e.stopPropagation();
     if (productId) removeFromStack(productId);
   };
 
   return (
     <div className="group flex flex-col justify-between bg-white rounded-xl p-3.5 border border-stone-200 shadow-xs hover:shadow-lg transition-all duration-300">
-      <Link href={`/stack/${productId}`} className="block w-full">
-        {/* Shape: Vertical Rectangle (Width < Length / Height) */}
+      {/* Clickable Card Link for Navigation */}
+      <Link
+        href={`/stack/${productId}`}
+        className="block w-full cursor-pointer"
+      >
         <div className="w-full aspect-[3/4] bg-stone-100 rounded-lg overflow-hidden relative mb-3">
           <img
             src={product.cartImage || "/placeholder.jpg"}
@@ -57,7 +60,6 @@ export default function ProductCustomizeKits({
           </span>
         </div>
 
-        {/* Details */}
         <div className="flex flex-col mb-3">
           <h3 className="font-serif font-bold text-sm text-[#0f3d4c] group-hover:text-[#8C4327] transition-colors line-clamp-1">
             {product.productName || "Customized Kit"}
@@ -73,7 +75,6 @@ export default function ProductCustomizeKits({
             </p>
           )}
 
-          {/* Product Tags */}
           {Array.isArray(product.productTags) &&
             product.productTags.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-2">
@@ -95,7 +96,7 @@ export default function ProductCustomizeKits({
         </div>
       </Link>
 
-      {/* Cart Control */}
+      {/* Stack & Cart Actions (Positioned Outside Link) */}
       {count === 0 ? (
         <button
           type="button"
@@ -114,7 +115,7 @@ export default function ProductCustomizeKits({
             >
               −
             </button>
-            <span className="font-sans text-xs font-bold text-[#0f3d4c] px-2">
+            <span className="font-sans text-xs font-bold text-[#0f3d4c] px-2 select-none">
               {count}
             </span>
             <button
