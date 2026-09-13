@@ -1,16 +1,19 @@
-import React from "react";
-import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import homeData from "../data/HomeData.json";
 
-import ToteImg from "../../public/Totebag.png";
+import Customized_Kits from "../../public/Customized_Kits.png";
+import DIYkits_CoverPhoto from "../../public/DIYkits_CoverPhoto.png";
 import JewelryImg from "../../public/Jewelery.png";
 import CraftImg from "../../public/OurCraft.png";
+import ToteImg from "../../public/Totebag.png";
 
 // Add Record<string, StaticImageData> type here
 const imageMap: Record<string, StaticImageData> = {
   ToteImg,
   JewelryImg,
+  DIYkits_CoverPhoto,
+  Customized_Kits,
   CraftImg,
 };
 

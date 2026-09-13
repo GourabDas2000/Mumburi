@@ -4,27 +4,27 @@
       "badge": "Locally Crafted & Sustainably Sourced",
       "titleLine1": "Crafted by Hand,",
       "titleLine2": "Curated for You",
-      "description": "Discover a collection of artisanal treasures that celebrate the slow-living spirit. Each piece tells a unique story of heritage and heart.",
+      "description": "No fuss — just a few hands, a lot of patience and stuff made the slow way. Grandma would approve.",
       "buttonText": "Explore Collection",
       "buttonLink": "/stack"
     },
     "mobile": {
       "titleLine1": "Crafted by Hand,",
       "titleLine2": "Curated for You",
-      "description": "Explore a collection where every piece tells a story of tradition, patience, and the touch of a master artisan.",
+      "description": "No two pieces are the same — each one made slowly, by hand, with lot of patience.",
       "primaryButtonText": "Shop Collections",
       "primaryButtonLink": "/stack",
       "secondaryButtonText": "Know Our Craft",
       "secondaryButtonLink": "/craft"
     },
     "philosophy": {
-      "quote": "\"The beauty of the handmade lies in the imperfections that tell the story of the artisan's hands.\"",
+      "quote": "\"Every imperfection tells its own quiet story — a signature left by the hand that shaped it.\"",
       "label": "The Mumburi Philosophy"
     }
   },
   "collectionsSection": {
     "title": "The Mumburi Collections",
-    "description": "Explore our curated categories, each featuring products made with traditional techniques and modern sensibilities.",
+    "description": "Take a look around. Each category blends traditional techniques with a modern eye.",
     "viewAllText": "View All Products",
     "viewAllHref": "/stack",
     "items": [
@@ -48,16 +48,16 @@
         "id": "diy-kits",
         "title": "DIY Kits",
         "href": "/stack?category=DIY%20Kits",
-        "imageKey": null,
-        "isPlaceholder": true,
+        "imageKey": "DIYkits_CoverPhoto",
+        "isPlaceholder": false,
         "gridClass": "md:col-span-4 md:h-[280px]"
       },
       {
         "id": "customized-kits",
         "title": "Customized Kits",
         "href": "/bespoke",
-        "imageKey": null,
-        "isPlaceholder": true,
+        "imageKey": "Customized_Kits",
+        "isPlaceholder": false,
         "gridClass": "md:col-span-3 md:h-[280px]"
       },
       {
@@ -73,7 +73,7 @@
   "sayHelloSection": {
     "main": {
       "title": "Say Hello",
-      "description": "Are you a fellow maker or small shop owner? Drop us a line. We'd love to hear what you're working on and how we might support each other.",
+      "description": "Are you a maker too? We'd love to hear about it — and maybe help each other out along the way.",
       "whatsappButtonText": "Chat on WhatsApp",
       "emailButtonText": "Email Me"
     },
