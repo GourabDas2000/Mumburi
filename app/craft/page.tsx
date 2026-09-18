@@ -1,5 +1,24 @@
 import React from "react";
-import craftData from "../data/CraftData.json"; // Adjust the import path to match your folder structure
+import Image, { StaticImageData } from "next/image";
+import craftData from "../data/CraftData.json";
+
+// Import craft images
+import CraftJewellery from "../../public/Clay&Jewellery_OurCraft.jpg";
+import HandPaintedTextiles from "../../public/HandPaintedTextiles_OurCraft.png";
+import ArtisanalToteBags from "../../public/Totebags_OurCraft.png";
+import DIYKits from "../../public/DIYkits_OurCraft.png";
+import BespokeFabrics from "../../public/Bespoke_OurCraft.png";
+import CustomizedKits from "../../public/CustomizedKits_OurCraft.png";
+
+// Dictionary mapping imageKey from JSON to imported StaticImageData
+const imageMap: Record<string, StaticImageData> = {
+  CraftJewellery,
+  HandPaintedTextiles,
+  ArtisanalToteBags,
+  DIYKits,
+  BespokeFabrics,
+  CustomizedKits,
+};
 
 export default function OurCraft() {
   const { header, sections } = craftData;
@@ -20,6 +39,9 @@ export default function OurCraft() {
       <div className="max-w-6xl mx-auto flex flex-col gap-24 md:gap-32">
         {sections.map((item, index) => {
           const isImageLeft = item.imagePosition === "left";
+          const craftImage = item.imageKey
+            ? imageMap[item.imageKey] || CraftJewellery
+            : null;
 
           return (
             <div
@@ -48,36 +70,46 @@ export default function OurCraft() {
 
               {/* IMAGE CONTAINER WITH OVERLAY STICKER */}
               <div className="w-full md:w-1/2 relative flex justify-center items-center">
-                {/* Blank Organic Frame Container */}
+                {/* Organic Frame Container */}
                 <div
                   style={{ borderRadius: item.borderRadius }}
                   className="relative w-full aspect-[4/3] max-w-md bg-[#eeebe5] border border-black/5 shadow-inner flex flex-col items-center justify-center text-gray-400 overflow-hidden group transition-all duration-300 hover:shadow-md"
                 >
-                  {/* Visual Placeholder Indicator */}
-                  <div className="flex flex-col items-center gap-2 select-none opacity-60">
-                    <svg
-                      className="w-10 h-10 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <span className="text-xs uppercase tracking-widest font-sans">
-                      Image Placeholder
-                    </span>
-                  </div>
+                  {craftImage ? (
+                    <Image
+                      src={craftImage}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  ) : (
+                    /* Visual Placeholder Indicator */
+                    <div className="flex flex-col items-center gap-2 select-none opacity-60">
+                      <svg
+                        className="w-10 h-10 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span className="text-xs uppercase tracking-widest font-sans">
+                        Image Placeholder
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                {/* YELLOW STICKER NOTE (Matched to Partnership Page) */}
+                {/* FROSTED GLASS STICKER NOTE */}
                 {item.fact && (
                   <div
-                    className={`absolute z-20 max-w-[210px] p-4 bg-[#FFBC57] text-[#3d2407] shadow-lg rounded-2xl rotate-[-3deg] transition-transform duration-300 hover:rotate-0 hover:scale-105 ${
+                    className={`absolute z-20 max-w-[210px] p-4 bg-[#FFBC57]/75 backdrop-blur-md border border-white/30 text-[#1a0c01] shadow-xl rounded-2xl rotate-[-3deg] transition-all duration-300 hover:rotate-0 hover:scale-105 ${
                       isImageLeft
                         ? "-top-4 -right-2 md:top-6 md:-right-6"
                         : "-bottom-4 -left-2 md:bottom-6 md:-left-6"
@@ -85,17 +117,17 @@ export default function OurCraft() {
                   >
                     <div className="flex items-start gap-2">
                       {item.factIcon && (
-                        <span className="text-base leading-none select-none">
+                        <span className="text-base leading-none select-none drop-shadow-sm">
                           {item.factIcon}
                         </span>
                       )}
-                      <div className="font-sans text-[0.78rem] leading-snug font-medium">
-                        <strong className="block font-bold uppercase tracking-wider text-[0.65rem] text-[#523004] mb-0.5">
+                      <div className="font-sans text-[0.78rem] leading-snug">
+                        <strong className="block font-extrabold uppercase tracking-wider text-[0.65rem] text-[#2b1402] mb-0.5">
                           {item.fact.includes(":")
                             ? item.fact.split(":")[0]
                             : "CRAFT DETAIL"}
                         </strong>
-                        <p className="text-[#3b2207]">
+                        <p className="text-[#1a0c01] font-semibold leading-normal">
                           {item.fact.includes(":")
                             ? item.fact
                                 .substring(item.fact.indexOf(":") + 1)

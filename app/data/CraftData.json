@@ -1,61 +1,67 @@
 {
   "header": {
     "title": "Our Craft",
-    "description": "Explore the meticulous techniques and natural materials behind every Mumburi creation. A testament to heritage and slow craftsmanship."
+    "description": "Different materials, different hands, different techniques — someone who knows exactly what they're doing behind every one. Here's a closer look at our craft, category by category."
   },
   "sections": [
     {
       "badge": "EARTH & FIRE",
       "title": "Clay Works & Jewellery",
-      "description": "Each piece of jewelry and ceramic vessel is sculpted by hand, drawing inspiration from ancient motifs. We source raw clay locally, allowing the natural minerals to create subtle variations in color and texture after firing.",
-      "fact": "Fact: Fired at exactly 1050°C to achieve optimal durability while retaining an earthy porosity.",
+      "description": "Shaped and molded by hand, piece by piece, using clay that's kind to the earth. That's really the whole process.",
+      "fact": "Made with eco-friendly clay — molded entirely by hand, with no machines and no shortcuts.",
       "factIcon": "🔥",
       "imagePosition": "right",
+      "imageKey": "CraftJewellery",
       "borderRadius": "28px 45px 35px 50px / 45px 25px 50px 30px"
     },
     {
       "badge": "WOVEN CANVAS",
       "title": "Hand-Painted Textiles",
-      "description": "Our fabrics serve as a canvas for storytelling. Artisans use fine brushes to apply complex, heritage patterns directly onto the woven fabric, ensuring no two pieces are ever exactly alike.",
-      "fact": "Fact: Colors are derived entirely from plant roots, bark, and crushed minerals.",
+      "description": "Every pattern is painted on by hand, one fine brushstroke at a time",
+      "fact": "The patterns are passed down by memory, not written instructions — no two artisans paint them quite the same way.",
       "factIcon": "🎨",
       "imagePosition": "left",
+      "imageKey": "HandPaintedTextiles",
       "borderRadius": "50px 30px 45px 25px / 30px 50px 25px 45px"
     },
     {
       "badge": "DAILY CARRY",
-      "title": "Artisanal Tote Bags",
-      "description": "Constructed for longevity and adorned with heritage motifs, these totes blend heavy-weight, unbleached canvas with intricate embroidery panels that celebrate traditional craftsmanship in a modern silhouette.",
-      "fact": "Fact: Every load-bearing seam features our signature hidden double-stitch for unmatched durability.",
+      "title": "Everyday Totes",
+      "description": "Built for daily use",
+      "fact": "The canvas is left unbleached on purpose — it's tougher, and it ages better with use",
       "factIcon": "🔨",
       "imagePosition": "right",
+      "imageKey": "ArtisanalToteBags",
       "borderRadius": "40% 60% 70% 30% / 50% 60% 40% 50%"
     },
     {
       "badge": "CREATE",
       "title": "DIY Kits",
-      "description": "Experience the meditative process of creation at home. Our curated kits provide everything needed to craft your own piece of heritage, connecting you directly to the artisan's journey.",
-      "fact": "Fact: Each box includes a handwritten 'Artisan's Tip' sharing a secret technique passed down through generations.",
+      "description": "A kit with everything you need to make your own piece at home",
+      "fact": null,
       "factIcon": "💡",
       "imagePosition": "left",
+      "imageKey": "DIYKits",
       "borderRadius": "35px 20px 50px 30px / 20px 45px 30px 50px"
     },
     {
-      "badge": "RAW MATERIALS",
-      "title": "Bespoke Fabrics",
-      "description": "We source only the finest, ethically produced fibers. From rough-hewn linens to smooth, tightly woven cottons, the foundation of our work is as considered as the embellishments we apply.",
+      "badge": "PERSONALIZED",
+      "title": "Made for you",
+      "description": "Start with an idea, however rough. We'll shape a kit around it — the right patterns, the right tools, the right materials, just for you.",
       "fact": null,
       "factIcon": null,
       "imagePosition": "right",
+      "imageKey": "BespokeFabrics",
       "borderRadius": "45px 50px 25px 35px / 30px 25px 50px 45px"
     },
     {
       "badge": "PERSONALIZED",
       "title": "Customized Kits",
-      "description": "Tailored for the dedicated maker. We consult with you to build a bespoke kit, selecting specific patterns, tools, and materials that align with your unique creative vision.",
+      "description": "Wedding, anniversary, a gift that matters — tell us the occasion, we'll pack everything into one kit.",
       "fact": null,
       "factIcon": null,
       "imagePosition": "left",
+      "imageKey": "CustomizedKits",
       "borderRadius": "30px 50px 40px 25px / 45px 30px 25px 50px"
     }
   ]
