@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useEffect, Suspense } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import stackData from "../data/StackData.json";
 
@@ -9,6 +10,8 @@ import ProductDiyKits from "../component/ProductDiyKits";
 import ProductHandPaintedTextiles from "../component/ProductHandPaintedTextiles";
 import ProductJewelery from "../component/ProductJewelery";
 import ProductTotebags from "../component/ProductTotebags";
+
+import Coverphot_Stack from "../../public/CoverPhoto_Stack.jpg";
 
 export interface Product {
   id: string;
@@ -194,24 +197,31 @@ function StackContent({ products }: StackContentProps) {
   return (
     <main className="w-full min-h-screen bg-[#FAF8F5] text-[#111827] font-sans pb-20">
       <div className="max-w-6xl mx-auto px-4 md:px-8 pt-6">
-        {/* Hero Banner */}
-        <div
-          className="relative w-full h-[320px] md:h-[400px] rounded-3xl overflow-hidden mb-12 flex items-center justify-center bg-cover bg-center shadow-xs"
-          style={{ backgroundImage: `url('/hero-bg.jpg')` }}
-        >
-          <div className="absolute inset-0 bg-black/25" />
-          <div className="relative z-10 max-w-lg mx-4 px-6 py-8 md:px-10 md:py-10 bg-white/35 backdrop-blur-md rounded-2xl border border-white/50 shadow-xl text-center flex flex-col items-center">
-            <h1 className="font-serif text-2xl md:text-4xl font-medium text-[#0f3d4c] mb-2 tracking-tight">
+        {/* Hero Banner with Full Image Cover */}
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] min-h-[220px] max-h-[420px] rounded-3xl overflow-hidden mb-12 flex items-center justify-center shadow-xs">
+          <Image
+            src={Coverphot_Stack}
+            alt="Festive Collections Cover"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+            className="object-cover object-center pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+
+          {/* Floating Glassmorphism Box with Hover Lift & Blur */}
+          <div className="relative z-10 max-w-[260px] sm:max-w-md md:max-w-lg mx-2 px-4 py-5 md:px-10 md:py-8 bg-white/20 hover:bg-white/35 backdrop-blur-xs hover:backdrop-blur-md rounded-2xl md:rounded-3xl border border-white/40 hover:border-white/80 shadow-lg hover:shadow-2xl hover:shadow-black/20 text-center flex flex-col items-center transform transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] cursor-default">
+            <h1 className="font-serif text-lg sm:text-2xl md:text-4xl font-medium text-[#0f3d4c] mb-1 md:mb-2 tracking-tight">
               Festive Collections
             </h1>
-            <p className="text-xs md:text-sm text-[#0f3d4c] font-medium leading-relaxed mb-6 max-w-xs md:max-w-sm">
+            <p className="text-[11px] sm:text-xs md:text-sm text-[#0f3d4c] font-medium leading-snug md:leading-relaxed mb-3 md:mb-5 max-w-[210px] sm:max-w-xs md:max-w-sm">
               Celebrate life's special moments with our curated Puja, Christmas,
               and Valentine's series.
             </p>
             <button
               type="button"
               onClick={() => handleThemeSelect("Puja")}
-              className="py-3.5 px-8 bg-[#8C4327] hover:bg-[#72341d] text-white font-sans text-xs md:text-sm font-bold uppercase tracking-[0.15em] rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-xs hover:shadow-md active:scale-95 cursor-pointer"
+              className="py-2 px-5 md:py-3 md:px-8 bg-[#8C4327] hover:bg-[#72341d] text-white font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.12em] md:tracking-[0.15em] rounded-lg md:rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
             >
               Shop Pujo Special
             </button>

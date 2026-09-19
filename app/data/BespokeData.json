@@ -1,11 +1,11 @@
 {
   "hero": {
-    "title": "The Bespoke Journey: Craft Your Vision with Our Artisans",
-    "subtitle": "From unique clay sculptures to hand-painted textiles, we collaborate with you to bring your personal stories to life through timeless craft."
+    "title": "Your Vision, Our Handss",
+    "subtitle": "Bring us the idea, however unfinished. We'll take it from there and shape it by hand."
   },
   "dialogue": {
-    "title": "Begin the Dialogue",
-    "subtitle": "Every masterpiece starts with a conversation. Share your inspiration with our master artisans and let us bring your vision to life.",
+    "title": "Let's Talk It Through",
+    "subtitle": "A few sentences is all we need to get started. We'll handle the rest.",
     "chips": [
       {
         "id": "piece",
@@ -39,6 +39,6 @@
   },
   "testimonial": {
     "quote": "“Mumburi translated my fragmented memories into a tangible heirloom I will cherish forever.”",
-    "author": "ELENA V., CLIENT"
+    "author": "CLIENT"
   }
 }

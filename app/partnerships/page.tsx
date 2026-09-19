@@ -1,6 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import collabData from "../data/PartnershipsData.json";
+import bookself_partnership from "../../public/bookself_partnership.png";
+import CoverPhoto_Partnership from "../../public/CoverPhoto_Partnership.png";
+import Studio_Partnership from "../../public/Studio_Partnership.png";
+import MiniPicture_Partnershitp from "../../public/MiniPicture_Partnershitp.png";
 
 const CollaborationPage = () => {
   const { hero, makers, wholesale } = collabData;
@@ -38,10 +43,7 @@ const CollaborationPage = () => {
 
           {/* Heading */}
           <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#0f3d4c] leading-[1.15] mb-6">
-            Handcrafted with love in my{" "}
-            <span className="underline decoration-[#c27b5e] decoration-2 underline-offset-8">
-              studio.
-            </span>
+            {hero.title}{" "}
           </h1>
 
           {/* Body Text */}
@@ -49,7 +51,7 @@ const CollaborationPage = () => {
             {hero.subtitle}
           </p>
 
-          {/* Home Page Hero Button Style (Matches Pic 2 Exactly) */}
+          {/* Hero Button Style */}
           <button
             type="button"
             className="bg-[#101828] hover:bg-[#1f2937] text-white text-xs md:text-sm font-bold uppercase tracking-[0.2em] px-7 py-3.5 rounded-md transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
@@ -58,31 +60,42 @@ const CollaborationPage = () => {
           </button>
         </div>
 
-        {/* Right Column Blob Image Placeholder */}
+        {/* Right Column Blob Image Container */}
         <div className="w-full md:w-1/2 flex justify-center relative">
           {/* Organic Blob Frame */}
-          <div className="relative w-full aspect-[4/3] max-w-md bg-[#eaddcf] rounded-[30%_70%_70%_30%/_30%_30%_70%_70%] shadow-inner border border-black/5 flex flex-col items-center justify-center text-gray-400 overflow-hidden">
-            <div className="flex flex-col items-center gap-2 opacity-60 select-none text-center px-6">
-              <svg
-                className="w-12 h-12 text-[#968270]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              <span className="text-xs uppercase tracking-widest font-semibold text-[#827060]">
-                Studio Workspace (Photo Space)
-              </span>
-            </div>
+          <div className="relative w-full aspect-[4/3] max-w-md bg-[#eaddcf] rounded-[30%_70%_70%_30%/_30%_30%_70%_70%] shadow-inner border border-black/5 flex flex-col items-center justify-center text-gray-400 overflow-hidden group">
+            {CoverPhoto_Partnership ? (
+              <Image
+                src={CoverPhoto_Partnership}
+                alt={hero.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-2 opacity-60 select-none text-center px-6">
+                <svg
+                  className="w-12 h-12 text-[#968270]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span className="text-xs uppercase tracking-widest font-semibold text-[#827060]">
+                  Studio Workspace
+                </span>
+              </div>
+            )}
           </div>
 
-          {/* Est. 2024 Floating Badge */}
+          {/* Est. 2022 Floating Badge */}
           <div className="absolute -bottom-4 left-1/3 bg-white/90 backdrop-blur-sm border border-gray-200/80 px-4 py-2 rounded-2xl shadow-sm text-xs font-serif text-[#a84c32] font-semibold">
             {hero.estTag}
           </div>
@@ -103,32 +116,44 @@ const CollaborationPage = () => {
           </p>
         </div>
 
-        {/* Right Column Photo Collage + Sticky Note Placeholder */}
+        {/* Right Column Photo Collage + Sticky Note */}
         <div className="w-full md:w-1/2 flex items-center justify-center relative">
           <div className="relative w-full max-w-md flex gap-4 items-end">
-            {/* Main Polaroid Frame Placeholder */}
+            {/* Main Polaroid Frame */}
             <div className="relative w-3/4 aspect-[3/4] bg-white p-3 rounded-2xl shadow-md border border-gray-100 flex flex-col items-center justify-center text-gray-400">
-              <div className="w-full h-full bg-[#f2ebd9] rounded-xl flex flex-col items-center justify-center p-4 text-center">
-                <svg
-                  className="w-10 h-10 text-gray-400 mb-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+              <div className="relative w-full h-full bg-[#f2ebd9] rounded-xl overflow-hidden flex flex-col items-center justify-center group">
+                {Studio_Partnership ? (
+                  <Image
+                    src={Studio_Partnership}
+                    alt={makers.heading}
+                    fill
+                    sizes="(max-width: 768px) 75vw, 35vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                </svg>
-                <span className="text-xs uppercase tracking-wider text-gray-500 font-medium">
-                  Makers Space Image
-                </span>
+                ) : (
+                  <div className="p-4 text-center">
+                    <svg
+                      className="w-10 h-10 text-gray-400 mb-2 mx-auto"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                      />
+                    </svg>
+                    <span className="text-xs uppercase tracking-wider text-gray-500 font-medium">
+                      Makers Space Image
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Floating Orange Studio Sticky Note */}
-              <div className="absolute -bottom-6 -left-6 bg-[#ffbc57] text-[#4a2e00] p-4 rounded-xl shadow-lg max-w-[170px] transform -rotate-3 border border-amber-300">
+              <div className="absolute -bottom-6 -left-6 z-10 bg-[#ffbc57] text-[#4a2e00] p-4 rounded-xl shadow-lg max-w-[170px] transform -rotate-3 border border-amber-300">
                 <span className="block text-[0.65rem] font-bold tracking-widest uppercase mb-1">
                   {makers.studioNote}
                 </span>
@@ -138,12 +163,22 @@ const CollaborationPage = () => {
               </div>
             </div>
 
-            {/* Secondary Small Image Placeholder */}
+            {/* Secondary Small Image Frame */}
             <div className="w-1/3 aspect-square bg-white p-2 rounded-xl shadow-md border border-gray-100">
-              <div className="w-full h-full bg-[#e8e0d5] rounded-lg flex items-center justify-center">
-                <span className="text-[0.65rem] text-gray-400 uppercase font-bold text-center">
-                  Crafting Detail
-                </span>
+              <div className="relative w-full h-full bg-[#e8e0d5] rounded-lg overflow-hidden flex items-center justify-center group">
+                {MiniPicture_Partnershitp ? (
+                  <Image
+                    src={MiniPicture_Partnershitp}
+                    alt="Crafting Detail"
+                    fill
+                    sizes="(max-width: 768px) 25vw, 15vw"
+                    className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
+                  />
+                ) : (
+                  <span className="text-[0.65rem] text-gray-400 uppercase font-bold text-center">
+                    Crafting Detail
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -157,32 +192,63 @@ const CollaborationPage = () => {
         {/* Left Column Image Container with "15+ Global Friends" Badge */}
         <div className="w-full md:w-1/2 flex justify-center relative order-2 md:order-1">
           <div className="relative w-full aspect-[4/5] max-w-sm bg-white p-4 rounded-3xl shadow-md border border-gray-100 flex flex-col items-center justify-center">
-            {/* Main Shelf Image Placeholder */}
-            <div className="w-full h-full bg-[#eee7de] rounded-2xl flex flex-col items-center justify-center text-gray-400 p-6 text-center">
-              <svg
-                className="w-12 h-12 text-gray-400 mb-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            {/* Main Shelf Image Container */}
+            <div className="relative w-full h-full bg-[#eee7de] rounded-2xl overflow-hidden flex flex-col items-center justify-center text-gray-400 group">
+              {bookself_partnership ? (
+                <Image
+                  src={bookself_partnership}
+                  alt={wholesale.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-              </svg>
-              <span className="text-xs uppercase tracking-widest font-semibold text-gray-500">
-                Boutique Shelf Image
-              </span>
+              ) : (
+                <div className="p-6 text-center">
+                  <svg
+                    className="w-12 h-12 text-gray-400 mb-2 mx-auto"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                    />
+                  </svg>
+                  <span className="text-xs uppercase tracking-widest font-semibold text-gray-500">
+                    Boutique Shelf Image
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Orange Badge Top Right */}
-            <div className="absolute -top-4 -right-2 bg-[#ffbc57] text-[#4a2e00] px-4 py-3 rounded-2xl shadow-md transform rotate-6 border border-amber-300 text-center">
-              <span className="block text-sm font-bold leading-tight">15+</span>
-              <span className="text-[0.65rem] font-medium leading-none block">
-                Global Friends
-              </span>
+            <div className="absolute -top-4 -right-2 z-10 bg-[#ffbc57] text-[#4a2e00] px-4 py-3 rounded-2xl shadow-md transform rotate-6 border border-amber-300 text-center">
+              {wholesale.badge ? (
+                wholesale.badge.split("\n").map((line, idx) => (
+                  <span
+                    key={idx}
+                    className={
+                      idx === 0
+                        ? "block text-sm font-bold leading-tight"
+                        : "text-[0.65rem] font-medium leading-none block"
+                    }
+                  >
+                    {line}
+                  </span>
+                ))
+              ) : (
+                <>
+                  <span className="block text-sm font-bold leading-tight">
+                    15+
+                  </span>
+                  <span className="text-[0.65rem] font-medium leading-none block">
+                    Global Friends
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>

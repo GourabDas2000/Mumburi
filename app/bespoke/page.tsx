@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import bespokeData from "../data/BespokeData.json";
 
-const BespokeJourney = () => {
+// Import bespoke showcase image
+import BespokeHeroImg from "../../public/CoverPhoto_BeSpoke.png";
+
+export default function BespokeJourney() {
   const { hero, dialogue, testimonial } = bespokeData;
   const [visionText, setVisionText] = useState("");
 
@@ -28,11 +32,12 @@ const BespokeJourney = () => {
     }
     if (!visionText) return;
 
-    const rawEmail = process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "hello@mumburi.com";
+    const rawEmail =
+      process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "hello@mumburi.com";
     const cleanEmail = rawEmail.replace(/^mailto:/, "");
 
     const subject = encodeURIComponent(
-      "New Bespoke Commission Request - Mumburi"
+      "New Bespoke Commission Request - Mumburi",
     );
     const body = encodeURIComponent(visionText);
     window.location.href = `mailto:${cleanEmail}?subject=${subject}&body=${body}`;
@@ -47,7 +52,7 @@ const BespokeJourney = () => {
     const baseUrl = rawWhatsapp.split("?")[0];
 
     const message = encodeURIComponent(
-      `Hi Mumburi team! I'd like to discuss a custom piece:\n\n${visionText}`
+      `Hi Mumburi team! I'd like to discuss a custom piece:\n\n${visionText}`,
     );
     window.open(`${baseUrl}?text=${message}`, "_blank");
   };
@@ -69,27 +74,39 @@ const BespokeJourney = () => {
             <div className="w-16 h-[3px] bg-[#d9a24a] rounded-full" />
           </div>
 
-          {/* Right Image Container (Blank Placeholder) */}
+          {/* Right Image Container (Next.js Image with Fallback) */}
           <div className="w-full md:w-1/2 flex justify-center">
             <div className="relative w-full aspect-[4/3] max-w-lg bg-[#eeebe5] rounded-2xl md:rounded-[2rem] border border-black/5 shadow-sm flex flex-col items-center justify-center text-gray-400 overflow-hidden group transition-all duration-300 hover:shadow-md">
-              <div className="flex flex-col items-center gap-3 select-none opacity-60">
-                <svg
-                  className="w-12 h-12 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <span className="text-xs uppercase tracking-widest font-bold text-gray-500">
-                  Artisan Studio Showcase (Image Space)
-                </span>
-              </div>
+              {BespokeHeroImg ? (
+                <Image
+                  src={BespokeHeroImg}
+                  alt={hero.title}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              ) : (
+                /* Fallback Placeholder Indicator */
+                <div className="flex flex-col items-center gap-3 select-none opacity-60">
+                  <svg
+                    className="w-12 h-12 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="text-xs uppercase tracking-widest font-bold text-gray-500">
+                    Artisan Studio Showcase (Image Space)
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -130,7 +147,7 @@ const BespokeJourney = () => {
               />
             </div>
 
-            {/* Action Buttons (Matched to Partnership Page Style) */}
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 mb-10 w-full max-w-xl">
               {/* Discuss Via WhatsApp */}
               <button
@@ -226,6 +243,4 @@ const BespokeJourney = () => {
       </div>
     </main>
   );
-};
-
-export default BespokeJourney;
+}

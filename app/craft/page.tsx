@@ -106,28 +106,28 @@ export default function OurCraft() {
                   )}
                 </div>
 
-                {/* FROSTED GLASS STICKER NOTE */}
+                {/* HIGH-CONTRAST FROSTED GLASS STICKER NOTE */}
                 {item.fact && (
                   <div
-                    className={`absolute z-20 max-w-[210px] p-4 bg-[#FFBC57]/75 backdrop-blur-md border border-white/30 text-[#1a0c01] shadow-xl rounded-2xl rotate-[-3deg] transition-all duration-300 hover:rotate-0 hover:scale-105 ${
+                    className={`absolute z-20 max-w-[220px] p-4 bg-[#FFBC57]/50 backdrop-blur-xl border border-white/60 shadow-2xl rounded-2xl rotate-[-3deg] transition-all duration-300 hover:rotate-0 hover:scale-105 ${
                       isImageLeft
                         ? "-top-4 -right-2 md:top-6 md:-right-6"
                         : "-bottom-4 -left-2 md:bottom-6 md:-left-6"
                     }`}
                   >
-                    <div className="flex items-start gap-2">
+                    <div className="flex items-start gap-2.5">
                       {item.factIcon && (
-                        <span className="text-base leading-none select-none drop-shadow-sm">
+                        <span className="text-lg leading-none select-none drop-shadow-sm">
                           {item.factIcon}
                         </span>
                       )}
-                      <div className="font-sans text-[0.78rem] leading-snug">
-                        <strong className="block font-extrabold uppercase tracking-wider text-[0.65rem] text-[#2b1402] mb-0.5">
+                      <div className="font-sans">
+                        <strong className="block font-black uppercase tracking-wider text-[0.65rem] text-black mb-1">
                           {item.fact.includes(":")
                             ? item.fact.split(":")[0]
                             : "CRAFT DETAIL"}
                         </strong>
-                        <p className="text-[#1a0c01] font-semibold leading-normal">
+                        <p className="text-xs font-bold leading-relaxed text-black">
                           {item.fact.includes(":")
                             ? item.fact
                                 .substring(item.fact.indexOf(":") + 1)
