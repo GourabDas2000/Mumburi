@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import Image, { StaticImageData } from "next/image";
 import bespokeData from "../data/BespokeData.json";
 
 // Import bespoke showcase image
@@ -11,11 +11,8 @@ export default function BespokeJourney() {
   const { hero, dialogue, testimonial } = bespokeData;
   const [visionText, setVisionText] = useState("");
 
-  const instaUrl =
-    process.env.NEXT_PUBLIC_INSTA_URL ||
-    "https://www.instagram.com/mumburi.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
-
-  const fbUrl = process.env.NEXT_PUBLIC_FB_URL || "https://facebook.com";
+  const instaUrl = process.env.NEXT_PUBLIC_INSTA_URL;
+  const fbUrl = process.env.NEXT_PUBLIC_FB_URL;
 
   // Default string parameter prevents Next.js 'implicit any' build errors
   const handleChipClick = (prompt = "") => {
@@ -30,25 +27,23 @@ export default function BespokeJourney() {
     if (e && typeof e.preventDefault === "function") {
       e.preventDefault();
     }
-    if (!visionText) return;
+    if (!visionText) return; // add pop up
 
-    const rawEmail =
-      process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "hello@mumburi.com";
+    const rawEmail = process.env.NEXT_PUBLIC_EMAIL_ADDRESS || ""; //handle exception
     const cleanEmail = rawEmail.replace(/^mailto:/, "");
 
     const subject = encodeURIComponent(
       "New Bespoke Commission Request - Mumburi",
     );
     const body = encodeURIComponent(visionText);
-    window.location.href = `mailto:${cleanEmail}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${cleanEmail}?subject=${subject}&body=${body}`; 
   };
 
   // Arrow function for WhatsApp submission
   const handleWhatsappSubmit = () => {
-    if (!visionText) return;
+    if (!visionText) return; // add pop up
 
-    const rawWhatsapp =
-      process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://wa.me/918240033522";
+    const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP_URL || ""; //handle exception
     const baseUrl = rawWhatsapp.split("?")[0];
 
     const message = encodeURIComponent(

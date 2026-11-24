@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import Logo from "../../public/Mumburi_logo.png";
-import "../globals.css";
 import { useStack } from "../context/StackContext";
+import "../globals.css";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -18,16 +18,15 @@ const Navbar = () => {
   }, []);
 
   // Dynamic environment variable overrides with fallback URLs
-  const whatsappUrl =
-    process.env.NEXT_PUBLIC_WHATSAPP_URL ||
-    "https://wa.me/918240033522?text=Hello!";
+  const whatsappUrl = process.env.NEXT_PUBLIC_WHATSAPP_URL;
 
-  const rawEmail =
-    process.env.NEXT_PUBLIC_EMAIL_ADDRESS || "contact@mumburi.com";
+  const rawEmail = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 
-  const emailUrl = rawEmail.startsWith("mailto:")
-    ? rawEmail
-    : `mailto:${rawEmail}`;
+  const emailUrl = rawEmail
+    ? rawEmail.startsWith("mailto:")
+      ? rawEmail
+      : `mailto:${rawEmail}`
+    : "#";
 
   const navLinks = [
     { name: "Home", href: "/" },

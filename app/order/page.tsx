@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useStack } from "../context/StackContext";
 import orderData from "../data/OrderData.json";
 
@@ -86,10 +86,8 @@ export default function OrderPage() {
     let targetUrl = "";
 
     if (target === "whatsapp") {
-      const rawPhone =
-        WHATSAPP_NUMBER || orderData.dispatch.whatsapp.phoneNumber || "";
-      const cleanPhone = rawPhone.replace(/[^0-9]/g, "");
-      targetUrl = `https://wa.me/${cleanPhone}?text=${encodedPayload}`;
+      const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_URL;
+      targetUrl = `${rawPhone}?text=${encodedPayload}`;
     } else if (target === "email") {
       const emailAddress =
         TARGET_EMAIL || orderData.dispatch.email.emailAddress;
